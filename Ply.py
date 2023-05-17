@@ -1,77 +1,99 @@
-import tkinter as tk
 import ply.lex as lex
+import tkinter as tk
 
-# Definir los tokens y las reglas de expresiones regulares
-tokens = (
-   'NUMBER',
-   'PLUS',
-   'MINUS',
-   'TIMES',
-   'DIVIDE',
-   'LPAREN',
-   'RPAREN',
-)
+# Definición de tokens y expresiones regulares
+reserved_words = {
+    'int': 'INT',
+    'for': 'FOR',
+    'return': 'RETURN',
+    'main': 'MAIN',
+    'printf': 'PRINTF',
+    'scanf': 'SCANF'
+}
 
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
+special_symbols = [
+    '%d',
+    '{',
+    '}',
+    '(',
+    ')',
+    '"',
+    '=',
+    '*',
+    ';',
+    ',',
+    '<=',
+    '++',
+    '\n',
+    '&'
+]
+
+tokens = [
+    'NUMBER',
+    'IDENTIFIER'
+] + list(reserved_words.values())
 
 def t_NUMBER(t):
-    r'\d+'
+    r'[+-]?[0-9]+'
     t.value = int(t.value)
     return t
+
+def t_IDENTIFIER(t):
+    r'[a-z]+[0-9]*'
+    t.type = reserved_words.get(t.value, 'IDENTIFIER')
+    return t
+
+t_ignore = ' \t'
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-t_ignore  = ' \t'
-
 def t_error(t):
-    print("Carácter no válido '%s'" % t.value[0])
+    print(f"Carácter ilegal '{t.value[0]}'")
     t.lexer.skip(1)
 
-# Construir el lexer
+# Construir el analizador léxico
 lexer = lex.lex()
 
-# Crear la ventana principal
-window = tk.Tk()
-window.title("Calculadora")
-
-# Crear un cuadro de texto
-text_box = tk.Text(window)
-text_box.pack()
-
-# Agregar una etiqueta
-label = tk.Label(window, text="Resultado:")
-label.pack()
-
-# Función para analizar la expresión
-def analyze_expression():
-    expression = text_box.get("1.0", "end-1c")
-    
-    # Tokenizar
+# Función para analizar el código y clasificar los tokens
+def analyze_code():
+    code = code_text.get("1.0", tk.END)
+    lexer.input(code)
     result = ""
-    lexer.input(expression)
     while True:
-        tok = lexer.token()
-        if not tok:
-            break      # No hay más entrada
-        result += str(tok) + "\n"
-    
-    # Mostrar el resultado
-    result_label.config(text=result)
+        token = lexer.token()
+        if not token:
+            break
+        if token.type in reserved_words.values():
+            result += f"Palabra reservada: {token.value}\n"
+        elif token.type in special_symbols:
+            result += f"Símbolo especial: {token.value}\n"
+        elif token.type == "NUMBER":
+            result += f"Número: {token.value}\n"
+        elif token.type == "IDENTIFIER":
+            result += f"Identificador: {token.value}\n"
+    output_text.delete("1.0", tk.END)
+    output_text.insert(tk.END, result)
 
-# Botón para analizar la expresión
-analyze_button = tk.Button(window, text="Analizar", command=analyze_expression)
+# Crear ventana principal
+window = tk.Tk()
+window.title("Analizador Léxico")
+window.geometry("500x400")
+
+# Crear elementos de la interfaz
+code_label = tk.Label(window, text="Código:")
+code_label.pack()
+code_text = tk.Text(window, height=10)
+code_text.pack()
+
+analyze_button = tk.Button(window, text="Analizar", command=analyze_code)
 analyze_button.pack()
 
-# Etiqueta para mostrar el resultado
-result_label = tk.Label(window, text="")
-result_label.pack()
+output_label = tk.Label(window, text="Resultados:")
+output_label.pack()
+output_text = tk.Text(window, height=10)
+output_text.pack()
 
-# Iniciar el bucle de eventos de la ventana
+# Iniciar el bucle principal del programa
 window.mainloop()
