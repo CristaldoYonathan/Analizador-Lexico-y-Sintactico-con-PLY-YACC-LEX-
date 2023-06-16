@@ -1,4 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+<<<<<<< HEAD
 
 Grammar
 
@@ -484,3 +485,5 @@ WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 11 resolved as shif
 WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 15 resolved as shift
 WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 24 resolved as shift
 WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 31 resolved as shift
+=======
+>>>>>>> f77df12f142afbc2ebccf5ae7885f320ce7bd6fa
