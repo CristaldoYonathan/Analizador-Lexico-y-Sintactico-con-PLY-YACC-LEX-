@@ -1,5 +1,4 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
-<<<<<<< HEAD
 
 Grammar
 
@@ -21,8 +20,8 @@ Rule 14    parametros -> parametro SIMBOLO_ESPECIAL parametros
 Rule 15    parametros -> parametro
 Rule 16    parametro -> string
 Rule 17    string -> STRING
-Rule 18    asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
-Rule 19    asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+Rule 18    asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
+Rule 19    asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
 Rule 20    asignacion -> IDENTIFICADOR DIGITO
 Rule 21    expresiones -> expresion SIMBOLO_ESPECIAL expresion
 Rule 22    expresiones -> expresion expresion
@@ -45,8 +44,8 @@ asignacion           : 7
 bloque               : 1 11 12
 declaracion          : 3 4
 declaraciones        : 2 3
-expresion            : 8 18 19 21 21 22 22
-expresiones          : 
+expresion            : 8 21 21 22 22
+expresiones          : 18 19
 funcion              : 6
 incluir              : 5
 parametro            : 14 15
@@ -93,8 +92,8 @@ state 3
     (10) funcion -> . RESERVADO argumento SIMBOLO_ESPECIAL
     (11) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
     (12) funcion -> . RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque
-    (18) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
-    (19) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+    (18) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
+    (19) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
     (20) asignacion -> . IDENTIFICADOR DIGITO
     (23) expresion -> . IDENTIFICADOR
     (24) expresion -> . DIGITO
@@ -131,8 +130,8 @@ state 5
     (10) funcion -> . RESERVADO argumento SIMBOLO_ESPECIAL
     (11) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
     (12) funcion -> . RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque
-    (18) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
-    (19) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+    (18) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
+    (19) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
     (20) asignacion -> . IDENTIFICADOR DIGITO
     (23) expresion -> . IDENTIFICADOR
     (24) expresion -> . DIGITO
@@ -195,7 +194,7 @@ state 10
     (10) funcion -> RESERVADO . argumento SIMBOLO_ESPECIAL
     (11) funcion -> RESERVADO . RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
     (12) funcion -> RESERVADO . SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque
-    (18) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+    (18) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
     (13) argumento -> . SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL
 
     RESERVADO       shift and go to state 15
@@ -206,7 +205,7 @@ state 10
 
 state 11
 
-    (19) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+    (19) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
     (20) asignacion -> IDENTIFICADOR . DIGITO
     (23) expresion -> IDENTIFICADOR .
 
@@ -287,21 +286,24 @@ state 17
 
 state 18
 
-    (18) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+    (18) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
 
     SIMBOLO_ESPECIAL shift and go to state 27
 
 
 state 19
 
-    (19) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . expresion SIMBOLO_ESPECIAL
+    (19) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . expresiones SIMBOLO_ESPECIAL
+    (21) expresiones -> . expresion SIMBOLO_ESPECIAL expresion
+    (22) expresiones -> . expresion expresion
     (23) expresion -> . IDENTIFICADOR
     (24) expresion -> . DIGITO
 
     IDENTIFICADOR   shift and go to state 28
     DIGITO          shift and go to state 12
 
-    expresion                      shift and go to state 29
+    expresiones                    shift and go to state 29
+    expresion                      shift and go to state 30
 
 state 20
 
@@ -317,7 +319,7 @@ state 21
 
     (11) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL . SIMBOLO_ESPECIAL bloque
 
-    SIMBOLO_ESPECIAL shift and go to state 30
+    SIMBOLO_ESPECIAL shift and go to state 31
 
 
 state 22
@@ -335,7 +337,7 @@ state 23
     (12) funcion -> RESERVADO SIMBOLO_ESPECIAL parametros . SIMBOLO_ESPECIAL bloque
     (13) argumento -> SIMBOLO_ESPECIAL parametros . SIMBOLO_ESPECIAL
 
-    SIMBOLO_ESPECIAL shift and go to state 31
+    SIMBOLO_ESPECIAL shift and go to state 32
 
 
 state 24
@@ -344,7 +346,7 @@ state 24
     (15) parametros -> parametro .
 
   ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
-    SIMBOLO_ESPECIAL shift and go to state 32
+    SIMBOLO_ESPECIAL shift and go to state 33
 
   ! SIMBOLO_ESPECIAL [ reduce using rule 15 (parametros -> parametro .) ]
 
@@ -365,39 +367,57 @@ state 26
 
 state 27
 
-    (18) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL . expresion SIMBOLO_ESPECIAL
+    (18) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL . expresiones SIMBOLO_ESPECIAL
+    (21) expresiones -> . expresion SIMBOLO_ESPECIAL expresion
+    (22) expresiones -> . expresion expresion
     (23) expresion -> . IDENTIFICADOR
     (24) expresion -> . DIGITO
 
     IDENTIFICADOR   shift and go to state 28
     DIGITO          shift and go to state 12
 
-    expresion                      shift and go to state 33
+    expresiones                    shift and go to state 34
+    expresion                      shift and go to state 30
 
 state 28
 
     (23) expresion -> IDENTIFICADOR .
 
     SIMBOLO_ESPECIAL reduce using rule 23 (expresion -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 23 (expresion -> IDENTIFICADOR .)
+    DIGITO          reduce using rule 23 (expresion -> IDENTIFICADOR .)
 
 
 state 29
 
-    (19) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion . SIMBOLO_ESPECIAL
+    (19) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones . SIMBOLO_ESPECIAL
 
-    SIMBOLO_ESPECIAL shift and go to state 34
+    SIMBOLO_ESPECIAL shift and go to state 35
 
 
 state 30
+
+    (21) expresiones -> expresion . SIMBOLO_ESPECIAL expresion
+    (22) expresiones -> expresion . expresion
+    (23) expresion -> . IDENTIFICADOR
+    (24) expresion -> . DIGITO
+
+    SIMBOLO_ESPECIAL shift and go to state 37
+    IDENTIFICADOR   shift and go to state 28
+    DIGITO          shift and go to state 12
+
+    expresion                      shift and go to state 36
+
+state 31
 
     (11) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL . bloque
     (2) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
 
     SIMBOLO_ESPECIAL shift and go to state 3
 
-    bloque                         shift and go to state 35
+    bloque                         shift and go to state 38
 
-state 31
+state 32
 
     (12) funcion -> RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL . bloque
     (13) argumento -> SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL .
@@ -408,9 +428,9 @@ state 31
 
   ! SIMBOLO_ESPECIAL [ reduce using rule 13 (argumento -> SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL .) ]
 
-    bloque                         shift and go to state 36
+    bloque                         shift and go to state 39
 
-state 32
+state 33
 
     (14) parametros -> parametro SIMBOLO_ESPECIAL . parametros
     (14) parametros -> . parametro SIMBOLO_ESPECIAL parametros
@@ -421,27 +441,45 @@ state 32
     STRING          shift and go to state 26
 
     parametro                      shift and go to state 24
-    parametros                     shift and go to state 37
+    parametros                     shift and go to state 40
     string                         shift and go to state 25
-
-state 33
-
-    (18) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion . SIMBOLO_ESPECIAL
-
-    SIMBOLO_ESPECIAL shift and go to state 38
-
 
 state 34
 
-    (19) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .
+    (18) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones . SIMBOLO_ESPECIAL
 
-    RESERVADO       reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
-    DIGITO          reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL shift and go to state 41
 
 
 state 35
+
+    (19) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .
+
+    RESERVADO       reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+    DIGITO          reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 19 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+
+
+state 36
+
+    (22) expresiones -> expresion expresion .
+
+    SIMBOLO_ESPECIAL reduce using rule 22 (expresiones -> expresion expresion .)
+
+
+state 37
+
+    (21) expresiones -> expresion SIMBOLO_ESPECIAL . expresion
+    (23) expresion -> . IDENTIFICADOR
+    (24) expresion -> . DIGITO
+
+    IDENTIFICADOR   shift and go to state 28
+    DIGITO          shift and go to state 12
+
+    expresion                      shift and go to state 42
+
+state 38
 
     (11) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .
 
@@ -451,7 +489,7 @@ state 35
     SIMBOLO_ESPECIAL reduce using rule 11 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
 
 
-state 36
+state 39
 
     (12) funcion -> RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque .
 
@@ -461,21 +499,28 @@ state 36
     SIMBOLO_ESPECIAL reduce using rule 12 (funcion -> RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque .)
 
 
-state 37
+state 40
 
     (14) parametros -> parametro SIMBOLO_ESPECIAL parametros .
 
     SIMBOLO_ESPECIAL reduce using rule 14 (parametros -> parametro SIMBOLO_ESPECIAL parametros .)
 
 
-state 38
+state 41
 
-    (18) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .
+    (18) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .
 
-    RESERVADO       reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
-    DIGITO          reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL .)
+    RESERVADO       reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+    DIGITO          reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 18 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL .)
+
+
+state 42
+
+    (21) expresiones -> expresion SIMBOLO_ESPECIAL expresion .
+
+    SIMBOLO_ESPECIAL reduce using rule 21 (expresiones -> expresion SIMBOLO_ESPECIAL expresion .)
 
 WARNING: 
 WARNING: Conflicts:
@@ -484,6 +529,4 @@ WARNING: shift/reduce conflict for DIGITO in state 11 resolved as shift
 WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 11 resolved as shift
 WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 15 resolved as shift
 WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 24 resolved as shift
-WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 31 resolved as shift
-=======
->>>>>>> f77df12f142afbc2ebccf5ae7885f320ce7bd6fa
+WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 32 resolved as shift

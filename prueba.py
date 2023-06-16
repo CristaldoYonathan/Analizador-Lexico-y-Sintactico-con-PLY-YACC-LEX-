@@ -36,74 +36,63 @@ lexer = lex.lex()
 # Definición de reglas de producción
 def p_expression_programa(p):
     ''' programa : bloque
-    ''' 
-    pass
+    '''  
 
 def p_expression_bloque(p):
     ''' bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
-    '''
-    pass
+    ''' 
+    # { declaraciones }
 
 def p_expression_declaraciones(p):
     ''' declaraciones : declaracion declaraciones
     | declaracion
-    '''
-    pass
+    ''' 
 
 def p_expression_declaracion(p):
     ''' declaracion : incluir
     | funcion
     | asignacion
     | expresion
-    '''
-    pass
+    ''' 
 
 def p_expression_incluir(p):
     ''' incluir : RESERVADO RESERVADO
-    '''
-    pass
+    ''' 
 
 def p_expression_funcion(p):
     ''' funcion : RESERVADO argumento SIMBOLO_ESPECIAL
     | RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
     | RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque
-    '''
-    pass
+    ''' 
 
-def p_argumentos_funcion(p):
+def p_expression_argumento(p):
     ''' argumento : SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL'''
-    pass
 
 def p_expression_parametros(p):
     ''' parametros : parametro SIMBOLO_ESPECIAL parametros
     | parametro
     '''
-    pass
 
 def p_expression_parametro(p):
-    ''' parametro : string 
+    ''' parametro : string  
     '''
-    pass
 
 def p_expression_string(p):
     ''' string : STRING 
     '''
-    pass
 
 def p_expression_asignacion(p):
-    ''' asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
-    | IDENTIFICADOR SIMBOLO_ESPECIAL expresion SIMBOLO_ESPECIAL
+    ''' asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
+    | IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL
     | IDENTIFICADOR DIGITO
     '''
     if p[1] == 'return':
         p[0] = p[2]
-    pass
 
 def p_expression_expresiones(p):
     ''' expresiones : expresion SIMBOLO_ESPECIAL expresion
     | expresion expresion
     ''' 
-    pass
 
 def p_expression_expresion(p):
      ''' expresion : IDENTIFICADOR
