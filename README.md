@@ -69,7 +69,7 @@
 	- RESERVADO RESERVADO
 
  ### Codigo en C a analizar
- <code> #include <stdio.h>
+<code>#include <stdio.h>
 int main ( ) {
 ㅤㅤㅤint c;
 ㅤㅤㅤint n;
