@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'DIGITO IDENTIFICADOR RESERVADO SIMBOLO_ESPECIAL STRING programa : bloque\n     bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL\n     declaraciones : declaracion declaraciones\n    | declaracion\n     declaracion : incluir\n    | funcion\n    | asignacion\n    | expresion\n     incluir : RESERVADO RESERVADO\n     funcion : RESERVADO argumento SIMBOLO_ESPECIAL\n    | RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque\n    | RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque\n     argumento : SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL parametros : parametro SIMBOLO_ESPECIAL parametros\n    | parametro\n     parametro : string  \n     string : STRING \n     asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL\n    | IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL\n    | IDENTIFICADOR DIGITO\n     expresiones : expresion SIMBOLO_ESPECIAL expresion\n    | expresion expresion\n     expresion : IDENTIFICADOR\n    | DIGITO \n    '
+_lr_signature = 'IDENTIFICADOR NUMERO RESERVADO SIMBOLO_ESPECIAL STRING bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL\n     declaraciones : declaracion declaraciones \n                      | declaracion\n     declaracion : operacion \n                    | asignacion \n                    | funcion \n                    | inclusion \n                    | retorno \n     operacion : valor SIMBOLO_ESPECIAL valor \n     valor : IDENTIFICADOR\n                | NUMERO\n     asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL \n                    | RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL\n                    | IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL \n                    | IDENTIFICADOR SIMBOLO_ESPECIAL valor \n     funcion : RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque \n                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL \n                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque\n     argumentos : argumento SIMBOLO_ESPECIAL argumentos \n                    | argumento\n     argumento : asignacion\n                    | STRING\n                    | referencia\n                    | incremento\n                    | IDENTIFICADOR\n     referencia : SIMBOLO_ESPECIAL IDENTIFICADOR\n     incremento : IDENTIFICADOR SIMBOLO_ESPECIAL\n     retorno : RESERVADO valor SIMBOLO_ESPECIAL\n     inclusion : RESERVADO RESERVADO\n    '
     
-_lr_action_items = {'SIMBOLO_ESPECIAL':([0,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,21,22,23,24,25,26,28,29,30,31,32,34,35,36,38,39,40,41,42,],[3,13,-4,-5,-6,-7,-8,17,19,-24,-2,-3,21,22,27,-20,31,-10,32,33,-16,-17,-23,35,37,3,3,41,-19,-22,-11,-12,-14,-18,-21,]),'$end':([1,2,13,],[0,-1,-2,]),'RESERVADO':([3,5,6,7,8,9,10,11,12,13,15,20,22,35,38,39,41,],[10,10,-5,-6,-7,-8,15,-23,-24,-2,-9,-20,-10,-19,-11,-12,-18,]),'IDENTIFICADOR':([3,5,6,7,8,9,10,11,12,13,15,19,20,22,27,28,30,35,37,38,39,41,],[11,11,-5,-6,-7,-8,18,-23,-24,-2,-9,28,-20,-10,28,-23,28,-19,28,-11,-12,-18,]),'DIGITO':([3,5,6,7,8,9,11,12,13,15,19,20,22,27,28,30,35,37,38,39,41,],[12,12,-5,-6,-7,-8,20,-24,-2,-9,12,-20,-10,12,-23,12,-19,12,-11,-12,-18,]),'STRING':([17,33,],[26,26,]),}
+_lr_action_items = {'SIMBOLO_ESPECIAL':([0,3,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,22,23,24,25,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,],[2,14,-3,-4,-5,-6,-7,-8,16,19,21,-11,-1,-2,24,25,27,35,-9,-10,38,-13,42,43,-21,-22,-23,-24,44,-28,45,16,2,47,25,-26,48,27,-27,-14,-16,-12,-17,-18,-19,]),'$end':([1,14,],[0,-1,]),'RESERVADO':([2,4,5,6,7,8,9,11,13,14,17,19,22,23,25,35,37,43,45,46,47,48,49,],[11,11,-4,-5,-6,-7,-8,17,-11,-1,-29,26,-9,-10,-13,-28,-15,26,-14,-16,-12,11,-18,]),'IDENTIFICADOR':([2,4,5,6,7,8,9,11,13,14,16,17,19,21,22,23,25,26,27,35,37,43,44,45,46,47,48,49,],[12,12,-4,-5,-6,-7,-8,18,-11,-1,23,-29,34,23,-9,-10,23,40,41,-28,-15,34,23,-14,-16,-12,12,-18,]),'NUMERO':([2,4,5,6,7,8,9,11,13,14,16,17,21,22,23,25,35,37,44,45,46,47,48,49,],[13,13,-4,-5,-6,-7,-8,13,-11,-1,13,-29,13,-9,-10,13,-28,-15,13,-14,-16,-12,13,-18,]),'STRING':([19,43,],[31,31,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programa':([0,],[1,]),'bloque':([0,31,32,],[2,38,39,]),'declaraciones':([3,5,],[4,14,]),'declaracion':([3,5,],[5,5,]),'incluir':([3,5,],[6,6,]),'funcion':([3,5,],[7,7,]),'asignacion':([3,5,],[8,8,]),'expresion':([3,5,19,27,30,37,],[9,9,30,30,36,42,]),'argumento':([10,],[16,]),'parametros':([17,33,],[23,40,]),'parametro':([17,33,],[24,24,]),'string':([17,33,],[25,25,]),'expresiones':([19,27,],[29,34,]),}
+_lr_goto_items = {'bloque':([0,38,42,],[1,46,49,]),'declaraciones':([2,4,48,],[3,15,3,]),'declaracion':([2,4,48,],[4,4,4,]),'operacion':([2,4,21,44,48,],[5,5,36,36,5,]),'asignacion':([2,4,19,43,48,],[6,6,30,30,6,]),'funcion':([2,4,48,],[7,7,7,]),'inclusion':([2,4,48,],[8,8,8,]),'retorno':([2,4,48,],[9,9,9,]),'valor':([2,4,11,16,21,25,44,48,],[10,10,20,22,37,39,37,10,]),'argumentos':([19,43,],[28,50,]),'argumento':([19,43,],[29,29,]),'referencia':([19,43,],[32,32,]),'incremento':([19,43,],[33,33,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,29 +26,34 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> programa","S'",1,None,None,None),
-  ('programa -> bloque','programa',1,'p_expression_programa','prueba.py',38),
-  ('bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL','bloque',3,'p_expression_bloque','prueba.py',42),
-  ('declaraciones -> declaracion declaraciones','declaraciones',2,'p_expression_declaraciones','prueba.py',47),
-  ('declaraciones -> declaracion','declaraciones',1,'p_expression_declaraciones','prueba.py',48),
-  ('declaracion -> incluir','declaracion',1,'p_expression_declaracion','prueba.py',52),
-  ('declaracion -> funcion','declaracion',1,'p_expression_declaracion','prueba.py',53),
-  ('declaracion -> asignacion','declaracion',1,'p_expression_declaracion','prueba.py',54),
-  ('declaracion -> expresion','declaracion',1,'p_expression_declaracion','prueba.py',55),
-  ('incluir -> RESERVADO RESERVADO','incluir',2,'p_expression_incluir','prueba.py',59),
-  ('funcion -> RESERVADO argumento SIMBOLO_ESPECIAL','funcion',3,'p_expression_funcion','prueba.py',63),
-  ('funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',64),
-  ('funcion -> RESERVADO SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',65),
-  ('argumento -> SIMBOLO_ESPECIAL parametros SIMBOLO_ESPECIAL','argumento',3,'p_expression_argumento','prueba.py',69),
-  ('parametros -> parametro SIMBOLO_ESPECIAL parametros','parametros',3,'p_expression_parametros','prueba.py',72),
-  ('parametros -> parametro','parametros',1,'p_expression_parametros','prueba.py',73),
-  ('parametro -> string','parametro',1,'p_expression_parametro','prueba.py',77),
-  ('string -> STRING','string',1,'p_expression_string','prueba.py',81),
-  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL','asignacion',5,'p_expression_asignacion','prueba.py',85),
-  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL expresiones SIMBOLO_ESPECIAL','asignacion',4,'p_expression_asignacion','prueba.py',86),
-  ('asignacion -> IDENTIFICADOR DIGITO','asignacion',2,'p_expression_asignacion','prueba.py',87),
-  ('expresiones -> expresion SIMBOLO_ESPECIAL expresion','expresiones',3,'p_expression_expresiones','prueba.py',93),
-  ('expresiones -> expresion expresion','expresiones',2,'p_expression_expresiones','prueba.py',94),
-  ('expresion -> IDENTIFICADOR','expresion',1,'p_expression_expresion','prueba.py',98),
-  ('expresion -> DIGITO','expresion',1,'p_expression_expresion','prueba.py',99),
+  ("S' -> bloque","S'",1,None,None,None),
+  ('bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL','bloque',3,'p_expression_bloque','prueba.py',46),
+  ('declaraciones -> declaracion declaraciones','declaraciones',2,'p_expression_declaraciones','prueba.py',51),
+  ('declaraciones -> declaracion','declaraciones',1,'p_expression_declaraciones','prueba.py',52),
+  ('declaracion -> operacion','declaracion',1,'p_expression_declaracion','prueba.py',57),
+  ('declaracion -> asignacion','declaracion',1,'p_expression_declaracion','prueba.py',58),
+  ('declaracion -> funcion','declaracion',1,'p_expression_declaracion','prueba.py',59),
+  ('declaracion -> inclusion','declaracion',1,'p_expression_declaracion','prueba.py',60),
+  ('declaracion -> retorno','declaracion',1,'p_expression_declaracion','prueba.py',61),
+  ('operacion -> valor SIMBOLO_ESPECIAL valor','operacion',3,'p_expression_operacion','prueba.py',66),
+  ('valor -> IDENTIFICADOR','valor',1,'p_expression_valor','prueba.py',71),
+  ('valor -> NUMERO','valor',1,'p_expression_valor','prueba.py',72),
+  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL','asignacion',5,'p_expression_asignacion','prueba.py',77),
+  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL','asignacion',3,'p_expression_asignacion','prueba.py',78),
+  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL','asignacion',4,'p_expression_asignacion','prueba.py',79),
+  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor','asignacion',3,'p_expression_asignacion','prueba.py',80),
+  ('funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',85),
+  ('funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL','funcion',5,'p_expression_funcion','prueba.py',86),
+  ('funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',87),
+  ('argumentos -> argumento SIMBOLO_ESPECIAL argumentos','argumentos',3,'p_expression_argumentos','prueba.py',92),
+  ('argumentos -> argumento','argumentos',1,'p_expression_argumentos','prueba.py',93),
+  ('argumento -> asignacion','argumento',1,'p_expression_argumento','prueba.py',98),
+  ('argumento -> STRING','argumento',1,'p_expression_argumento','prueba.py',99),
+  ('argumento -> referencia','argumento',1,'p_expression_argumento','prueba.py',100),
+  ('argumento -> incremento','argumento',1,'p_expression_argumento','prueba.py',101),
+  ('argumento -> IDENTIFICADOR','argumento',1,'p_expression_argumento','prueba.py',102),
+  ('referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR','referencia',2,'p_expression_referencia','prueba.py',107),
+  ('incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL','incremento',2,'p_expression_incremento','prueba.py',112),
+  ('retorno -> RESERVADO valor SIMBOLO_ESPECIAL','retorno',3,'p_expression_retorno','prueba.py',117),
+  ('inclusion -> RESERVADO RESERVADO','inclusion',2,'p_expression_inclusion','prueba.py',122),
 ]
