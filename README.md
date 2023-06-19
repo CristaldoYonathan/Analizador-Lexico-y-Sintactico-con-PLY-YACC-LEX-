@@ -18,8 +18,8 @@
 | Reglas|         Expresiones regulares       |
 |----------|----------------------------|
 | t_RESERVADO | r'(int&#124;main&#124;for&#124;return&#124;printf&#124;scanf&#124;\#include&#124;\<stdio.h\>)' |
-| t_SIMBOLO_ESPECIAL | r'(\+\+&#124;\*&#124;\=&#124;\;&#124;\,&#124;\(&#124;\)&#124;\{&#124;\}&#124;\<=&#124;\&)'   |
-| t_STRING | r'"([ ^" ]*)"'   |
+| t_SIMBOLO_ESPECIAL | r'(\\+\\+&#124;\\*&#124;\\=&#124;\\;&#124;\\,&#124;\\(&#124;\\)&#124;\\{&#124;\\}&#124;\\<=&#124;\\&)'   |
+| t_STRING | r'"(\[\^"\]\*)"'   |
 | t_IDENTIFICADOR | r'([a-z]&#124;[A-Z])+'   | 
 
 ### Gramatica:
@@ -68,7 +68,7 @@
 	- RESERVADO RESERVADO
 
  ### Codigo en C a analizar
- <code> #include <stdio.h>
+<code>#include <stdio.h>
 int main ( ) {
 ㅤㅤㅤint c;
 ㅤㅤㅤint n;
