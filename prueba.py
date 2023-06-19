@@ -23,15 +23,15 @@ def t_NUMERO(t):
     return t
 
 # Ignorar caracteres de espacio en blanco
-t_ignore = '(\n| )\t'
+t_ignore = '( )\t'
 
 #t_ignore_COMMENT = r'\/\/.*'
 
-''' Define a rule so we can track line numbers
+# Define a rule so we can track line numbers
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-'''
+
     
 # Manejo de errores de tokens
 def t_error(t):
@@ -50,22 +50,52 @@ def p_expression_bloque(p):
 def p_expression_declaraciones(p):
     ''' declaraciones : declaracion declaraciones 
                       | declaracion
-    '''
-    pass
+    ''' 
+#    if len(p) == 3:
+#        p[0] = str(p[1]) + str(p[2])
+#    else:
+#        p[0] = str(p[1])
+
+# SIMBOLO_ESPECIAL
+# p_expression_operacion(p):
+#      ''' expression : expression SIMBOLO_ESPECIAL expression 
+#                     | expression SIMBOLO_ESPECIAL
+#      '''
+#      if len(p) == 4:
+#      if p[2] == '+'  : p[0] = p[1] + p[3]
+#      if p[2] == '*'  : p[0] = p[1] + p[3]
+#      if p[2] == '++'  : p[0] = p[1] + 1 
+#      if p[2] == '='  : 
+#          p[1] = p[3] 
+#          p[0] = p[1]
+#      if len(p) == 3: 
+#      if p[2] == '<=':
+#          if p[1] <= p[3]:
+#              p[0] = 1
+#          else:
+#              p[0] = 0
 
 def p_expression_declaracion(p):
-    ''' declaracion : operacion 
-                    | asignacion 
+    ''' declaracion : asignacion 
                     | funcion 
                     | inclusion 
                     | retorno 
     '''
-    pass
+
+#    if p[1] == 'asignacion':
+#        p[0] = str(p[1])
+#    if p[1] == 'funcion':
+#        p[0] = str(p[2])
+#    if p[1] == 'inclusion':
+#        p[0] = str(p[3])
+#    if p[1] == 'retorno':
+#        p[0] = str(p[4])
 
 def p_expression_operacion(p):
     ''' operacion : valor SIMBOLO_ESPECIAL valor 
     '''
     pass
+    
 
 def p_expression_valor(p):
     ''' valor : IDENTIFICADOR
@@ -111,7 +141,7 @@ def p_expression_referencia(p):
 def p_expression_incremento(p):
     ''' incremento : IDENTIFICADOR SIMBOLO_ESPECIAL
     '''
-    pass
+    pass   
 
 def p_expression_retorno(p):
     ''' retorno : RESERVADO valor SIMBOLO_ESPECIAL
@@ -121,34 +151,22 @@ def p_expression_retorno(p):
 def p_expression_inclusion(p):
     ''' inclusion : RESERVADO RESERVADO
     '''
-    pass
+    if p[1] == '#include' and p[2] == '<stdio.h>':
+        p[0] = '#include <stdio.h>'
 
 
 # Manejo de errores de parser
 def p_error(p):
-    print("Error de sintaxis en '%s'" % p.value)
+    print("Error de sintaxis en '%s' en la linea %d" % (p.value, p.lineno))
+
 
 # Construir el parser
 parser = yacc.yacc()
 
 # Cadena de entrada
-input_string = '''
-    #include <stdio.h>
-    int main ( )
-    {
-        int c;
-        int n;
-        int fact = 1;
-        printf("Ingrese el numero a calcular el factorial: \n");
-        scanf("%d ", &n);
-        for (c = 1; c <= n; c++){
-            fact = fact * c;
-        }
-        printf("El factorial de %d es: %d\n", n, fact);
-        return 0;
-    }
+input_string = '#include <stdio.h> int main({int c;int n;int fact = 1;printf("Ingrese el numero a calcular el factorial: \\n");scanf("%d", &n);for (c = 1; c <= n; c++){fact = fact * c;}printf("El factorial de %d es: %d\\n", n, fact);return 0;}' 
 
-''' 
+input_string = input('Ingrese una cadena de texto: ')
 
 # Ejecutar el lexer
 lexer.input(input_string)
@@ -158,7 +176,7 @@ while True:
     token = lexer.token()
     if not token:
         break 
-    print(str(token.type) + "  →  " + str(token.value) + " " + str(token.lineno) + " " + str(token.lexpos))
+    #print(str(token.type) + "  →  " + str(token.value) + " " + str(token.lineno) + " " + str(token.lexpos))
 
 # Ejecutar el parser
 result = parser.parse(input_string) 

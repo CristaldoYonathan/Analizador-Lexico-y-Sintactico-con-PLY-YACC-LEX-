@@ -29,8 +29,7 @@
 - **declaraciones**:
 	- declaracion declaraciones 
 	- declaracion
-- **declaracion**:
-	- operacion 
+- **declaracion**: 
 	- asignacion
 	- funcion 
 	- inclusion
