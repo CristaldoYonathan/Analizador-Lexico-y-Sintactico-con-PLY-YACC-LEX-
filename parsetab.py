@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CADENA_ESCAPE CADENA_FACTORIAL CADENA_RESULTADO CHAR COMMA ESCAPE_D ESCAPE_N FOR IDENTIFIER INCLUDE INT LBRACE LPAREN LTOEQ MAIN NUMBER PLUSPLUS PRINTF QUOTE RBRACE RETURN RPAREN SCANF SEMICOLON SIGNO STDIO_H TIMES delimitadorprograma : declaracionPrincipal\n                | sentencia\n                | libreriadeclaracionPrincipal : tdato MAIN delimitadores delimitadoressentencia : input\n                 | loop\n                 | output\n                 | RETURN NUMBER delimitadores\n                 | variable\n                 | conjunto\n                 | cadena\n                 | asignacion\n                 | comparacion\n                 | incremento\n                 | operar\n                 | declaracionVariable\n                 | escapelibreria : INCLUDE cadena programadeclaracionVariable : tdato identificador delimitadorvariable : tdato identificador SIGNO NUMBER delimitador\n                | tdato identificador SIGNO identificador delimitadorconjunto : LPAREN RPAREN\n                | LBRACE RBRACE\n                | LPAREN sentencia RPAREN\n                | LBRACE sentencia RBRACE\n                | QUOTE sentencia QUOTE\n                | LPAREN sentencia delimitador sentencia RPAREN\n                | QUOTE sentencia delimitadorescadena : CADENA_FACTORIAL\n              | CADENA_RESULTADO\n              | CADENA_ESCAPE\n              | STDIO_Hinput : SCANF delimitadores delimitadoresloop : FOR delimitador delimitadoroutput : PRINTF delimitadores delimitadoresasignacion : identificador SIGNO NUMBER delimitador\n                  | identificador SIGNO identificador delimitadorcomparacion : identificador SIGNO identificador delimitadorincremento : identificador PLUSPLUS delimitador\n                  | PLUSPLUS identificador delimitadoroperar : identificador TIMES identificadortdato : INT\n             | CHARidentificador : IDENTIFIERescape : QUOTE\n              | QUOTE ESCAPE_N sentenciadelimitadores : LPAREN\n                     | RPAREN\n                     | LBRACE\n                     | RBRACE\n                     | SEMICOLON\n                     | COMMA\n                     | QUOTE\n                     | delimitador\n                     | conjunto\n                     | conjunto SEMICOLON sentencia delimitadores\n                     | conjunto SEMICOLON sentencia'
+_lr_signature = 'IDENTIFICADOR NUMERO RESERVADO SIMBOLO_ESPECIAL STRING bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL\n     declaraciones : declaracion declaraciones \n                      | declaracion\n     declaracion : asignacion \n                    | funcion \n                    | inclusion \n                    | retorno \n     operacion : valor SIMBOLO_ESPECIAL valor \n     valor : IDENTIFICADOR\n                | NUMERO\n     asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL \n                    | RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL\n                    | IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL \n                    | IDENTIFICADOR SIMBOLO_ESPECIAL valor \n     funcion : RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque \n                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL \n                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque\n     argumentos : argumento SIMBOLO_ESPECIAL argumentos \n                    | argumento\n     argumento : asignacion\n                    | STRING\n                    | referencia\n                    | incremento\n                    | IDENTIFICADOR\n     referencia : SIMBOLO_ESPECIAL IDENTIFICADOR\n     incremento : IDENTIFICADOR SIMBOLO_ESPECIAL\n     retorno : RESERVADO valor SIMBOLO_ESPECIAL\n     inclusion : RESERVADO RESERVADO\n    '
     
-_lr_action_items = {'RETURN':([0,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[9,9,9,9,-29,-30,-31,-32,9,9,9,9,9,9,9,9,]),'INCLUDE':([0,29,30,31,32,38,],[19,-29,-30,-31,-32,19,]),'INT':([0,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[20,20,20,20,-29,-30,-31,-32,20,20,20,20,20,20,20,20,]),'CHAR':([0,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[21,21,21,21,-29,-30,-31,-32,21,21,21,21,21,21,21,21,]),'SCANF':([0,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[22,22,22,22,-29,-30,-31,-32,22,22,22,22,22,22,22,22,]),'FOR':([0,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[23,23,23,23,-29,-30,-31,-32,23,23,23,23,23,23,23,23,]),'PRINTF':([0,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[24,24,24,24,-29,-30,-31,-32,24,24,24,24,24,24,24,24,]),'LPAREN':([0,6,7,8,10,11,12,13,14,15,16,17,18,22,24,26,27,28,29,30,31,32,34,35,37,38,39,40,41,42,43,44,45,46,47,48,50,54,57,59,60,62,64,65,67,68,69,70,73,74,75,76,77,78,79,80,81,85,86,87,89,90,91,92,],[26,-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,40,40,26,26,26,-29,-30,-31,-32,-44,40,40,26,40,26,-48,26,-50,-51,-52,26,-54,-55,40,-22,-23,40,26,40,-19,-8,-33,26,-34,-35,-39,-41,-24,26,-25,26,-28,-46,-40,40,-37,-36,-21,-20,-56,-27,]),'LBRACE':([0,6,7,8,10,11,12,13,14,15,16,17,18,22,24,26,27,28,29,30,31,32,34,35,37,38,39,40,41,42,43,44,45,46,47,48,50,54,57,59,60,62,64,65,67,68,69,70,73,74,75,76,77,78,79,80,81,85,86,87,89,90,91,92,],[27,-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,42,42,27,27,27,-29,-30,-31,-32,-44,42,42,27,42,27,-48,27,-50,-51,-52,27,-54,-55,42,-22,-23,42,27,42,-19,-8,-33,27,-34,-35,-39,-41,-24,27,-25,27,-28,-46,-40,42,-37,-36,-21,-20,-56,-27,]),'QUOTE':([0,6,7,8,10,11,12,13,14,15,16,17,18,22,24,26,27,28,29,30,31,32,34,35,37,38,39,40,41,42,43,44,45,46,47,48,50,54,57,59,60,62,64,65,67,68,69,70,73,74,75,76,77,78,79,80,81,85,86,87,89,90,91,92,],[28,-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,46,46,28,28,28,-29,-30,-31,-32,-44,46,46,28,46,28,-48,28,-50,-51,-52,28,-54,-55,46,-22,-23,78,28,46,-19,-8,-33,28,-34,-35,-39,-41,-24,28,-25,28,-28,-46,-40,46,-37,-36,-21,-20,-56,-27,]),'CADENA_FACTORIAL':([0,19,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[29,29,29,29,29,-29,-30,-31,-32,29,29,29,29,29,29,29,29,]),'CADENA_RESULTADO':([0,19,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[30,30,30,30,30,-29,-30,-31,-32,30,30,30,30,30,30,30,30,]),'CADENA_ESCAPE':([0,19,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[31,31,31,31,31,-29,-30,-31,-32,31,31,31,31,31,31,31,31,]),'STDIO_H':([0,19,26,27,28,29,30,31,32,38,40,42,46,60,68,76,78,],[32,32,32,32,32,-29,-30,-31,-32,32,32,32,32,32,32,32,32,]),'PLUSPLUS':([0,25,26,27,28,29,30,31,32,34,38,40,42,46,60,68,76,78,],[33,52,33,33,33,-29,-30,-31,-32,-44,33,33,33,33,33,33,33,33,]),'IDENTIFIER':([0,5,20,21,26,27,28,29,30,31,32,33,38,40,42,46,51,53,56,60,63,68,76,78,],[34,34,-42,-43,34,34,34,-29,-30,-31,-32,34,34,34,34,34,34,34,34,34,34,34,34,34,]),'$end':([1,2,3,4,6,7,8,10,11,12,13,14,15,16,17,18,28,29,30,31,32,34,40,41,42,43,44,45,46,47,48,54,57,64,65,66,67,69,70,73,74,75,77,78,79,80,81,82,85,86,87,89,90,91,92,],[0,-1,-2,-3,-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,-45,-29,-30,-31,-32,-44,-47,-48,-49,-50,-51,-52,-53,-54,-55,-22,-23,-19,-8,-18,-33,-34,-35,-39,-41,-24,-25,-26,-28,-46,-40,-4,-57,-37,-36,-21,-20,-56,-27,]),'MAIN':([5,20,21,],[35,-42,-43,]),'RPAREN':([6,7,8,10,11,12,13,14,15,16,17,18,22,24,26,28,29,30,31,32,34,35,37,39,40,41,42,43,44,45,46,47,48,50,54,55,57,59,62,64,65,67,69,70,73,74,75,77,78,79,80,81,85,86,87,88,89,90,91,92,],[-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,41,41,54,-45,-29,-30,-31,-32,-44,41,41,41,54,-48,-49,-50,-51,-52,-53,-54,-55,41,-22,75,-23,41,41,-19,-8,-33,-34,-35,-39,-41,-24,-25,-26,-28,-46,-40,41,-37,-36,92,-21,-20,-56,-27,]),'delimitador':([6,7,8,10,11,12,13,14,15,16,17,18,22,23,24,28,29,30,31,32,34,35,36,37,39,40,41,42,43,44,45,46,47,48,49,50,52,54,55,57,59,61,62,64,65,67,69,70,71,72,73,74,75,77,78,79,80,81,83,84,85,86,87,89,90,91,92,],[-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,47,49,47,-45,-29,-30,-31,-32,-44,47,64,47,47,-47,-48,-49,-50,-51,-52,-53,-54,-55,69,47,73,-22,76,-23,47,81,47,-19,-8,-33,-34,-35,86,87,-39,-41,-24,-25,-26,-28,-46,-40,89,90,47,-37,-36,-21,-20,-56,-27,]),'RBRACE':([6,7,8,10,11,12,13,14,15,16,17,18,22,24,27,28,29,30,31,32,34,35,37,39,40,41,42,43,44,45,46,47,48,50,54,57,58,59,62,64,65,67,69,70,73,74,75,77,78,79,80,81,85,86,87,89,90,91,92,],[-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,43,43,57,-45,-29,-30,-31,-32,-44,43,43,43,-47,-48,57,-50,-51,-52,-53,-54,-55,43,-22,-23,77,43,43,-19,-8,-33,-34,-35,-39,-41,-24,-25,-26,-28,-46,-40,43,-37,-36,-21,-20,-56,-27,]),'SEMICOLON':([6,7,8,10,11,12,13,14,15,16,17,18,22,24,28,29,30,31,32,34,35,37,39,40,41,42,43,44,45,46,47,48,50,54,57,59,62,64,65,67,69,70,73,74,75,77,78,79,80,81,85,86,87,89,90,91,92,],[-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,44,44,-45,-29,-30,-31,-32,-44,44,44,44,-47,-48,-49,-50,-51,-52,-53,-54,68,44,-22,-23,44,44,-19,-8,-33,-34,-35,-39,-41,-24,-25,-26,-28,-46,-40,44,-37,-36,-21,-20,-56,-27,]),'COMMA':([6,7,8,10,11,12,13,14,15,16,17,18,22,24,28,29,30,31,32,34,35,37,39,40,41,42,43,44,45,46,47,48,50,54,57,59,62,64,65,67,69,70,73,74,75,77,78,79,80,81,85,86,87,89,90,91,92,],[-5,-6,-7,-9,-10,-11,-12,-13,-14,-15,-16,-17,45,45,-45,-29,-30,-31,-32,-44,45,45,45,-47,-48,-49,-50,-51,-52,-53,-54,-55,45,-22,-23,45,45,-19,-8,-33,-34,-35,-39,-41,-24,-25,-26,-28,-46,-40,45,-37,-36,-21,-20,-56,-27,]),'NUMBER':([9,51,63,],[37,72,84,]),'SIGNO':([25,34,36,],[51,-44,63,]),'TIMES':([25,34,],[53,-44,]),'ESCAPE_N':([28,],[60,]),}
+_lr_action_items = {'SIMBOLO_ESPECIAL':([0,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,20,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48,],[2,11,-3,-4,-5,-6,-7,15,18,-1,-2,19,20,22,30,-10,34,-12,38,39,-20,-21,-22,-23,40,-27,-9,41,42,2,44,20,-25,45,22,-26,-13,-15,-11,-16,-17,-18,-8,]),'$end':([1,11,],[0,-1,]),'RESERVADO':([2,4,5,6,7,8,9,11,13,15,17,20,30,31,33,39,41,43,44,45,46,],[9,9,-4,-5,-6,-7,13,-1,-28,21,-10,-12,-27,-9,-14,21,-13,-15,-11,9,-17,]),'IDENTIFICADOR':([2,4,5,6,7,8,9,11,13,15,17,18,20,21,22,30,31,33,39,40,41,42,43,44,45,46,],[10,10,-4,-5,-6,-7,14,-1,-28,29,-10,31,31,36,37,-27,-9,-14,29,31,-13,31,-15,-11,10,-17,]),'NUMERO':([9,18,20,40,42,],[17,17,17,17,17,]),'STRING':([15,39,],[26,26,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programa':([0,38,],[1,66,]),'declaracionPrincipal':([0,38,],[2,2,]),'sentencia':([0,26,27,28,38,40,42,46,60,68,76,78,],[3,55,58,59,3,55,58,59,80,85,88,59,]),'libreria':([0,38,],[4,4,]),'tdato':([0,26,27,28,38,40,42,46,60,68,76,78,],[5,56,56,56,5,56,56,56,56,56,56,56,]),'input':([0,26,27,28,38,40,42,46,60,68,76,78,],[6,6,6,6,6,6,6,6,6,6,6,6,]),'loop':([0,26,27,28,38,40,42,46,60,68,76,78,],[7,7,7,7,7,7,7,7,7,7,7,7,]),'output':([0,26,27,28,38,40,42,46,60,68,76,78,],[8,8,8,8,8,8,8,8,8,8,8,8,]),'variable':([0,26,27,28,38,40,42,46,60,68,76,78,],[10,10,10,10,10,10,10,10,10,10,10,10,]),'conjunto':([0,22,24,26,27,28,35,37,38,39,40,42,46,50,59,60,62,68,76,78,85,],[11,48,48,11,11,11,48,48,11,48,11,11,11,48,48,11,48,11,11,11,48,]),'cadena':([0,19,26,27,28,38,40,42,46,60,68,76,78,],[12,38,12,12,12,12,12,12,12,12,12,12,12,]),'asignacion':([0,26,27,28,38,40,42,46,60,68,76,78,],[13,13,13,13,13,13,13,13,13,13,13,13,]),'comparacion':([0,26,27,28,38,40,42,46,60,68,76,78,],[14,14,14,14,14,14,14,14,14,14,14,14,]),'incremento':([0,26,27,28,38,40,42,46,60,68,76,78,],[15,15,15,15,15,15,15,15,15,15,15,15,]),'operar':([0,26,27,28,38,40,42,46,60,68,76,78,],[16,16,16,16,16,16,16,16,16,16,16,16,]),'declaracionVariable':([0,26,27,28,38,40,42,46,60,68,76,78,],[17,17,17,17,17,17,17,17,17,17,17,17,]),'escape':([0,26,27,28,38,40,42,46,60,68,76,78,],[18,18,18,18,18,18,18,18,18,18,18,18,]),'identificador':([0,5,26,27,28,33,38,40,42,46,51,53,56,60,63,68,76,78,],[25,36,25,25,25,61,25,25,25,25,71,74,36,25,83,25,25,25,]),'delimitadores':([22,24,35,37,39,50,59,62,85,],[39,50,62,65,67,70,79,82,91,]),}
+_lr_goto_items = {'bloque':([0,34,38,],[1,43,46,]),'declaraciones':([2,4,45,],[3,12,3,]),'declaracion':([2,4,45,],[4,4,4,]),'asignacion':([2,4,15,39,45,],[5,5,25,25,5,]),'funcion':([2,4,45,],[6,6,6,]),'inclusion':([2,4,45,],[7,7,7,]),'retorno':([2,4,45,],[8,8,8,]),'valor':([9,18,20,40,42,],[16,33,35,33,48,]),'argumentos':([15,39,],[23,47,]),'argumento':([15,39,],[24,24,]),'referencia':([15,39,],[27,27,]),'incremento':([15,39,],[28,28,]),'operacion':([18,40,],[32,32,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,62 +26,33 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> programa","S'",1,None,None,None),
-  ('programa -> declaracionPrincipal','programa',1,'p_programa','Analizador sintactico.py',95),
-  ('programa -> sentencia','programa',1,'p_programa','Analizador sintactico.py',96),
-  ('programa -> libreria','programa',1,'p_programa','Analizador sintactico.py',97),
-  ('declaracionPrincipal -> tdato MAIN delimitadores delimitadores','declaracionPrincipal',4,'p_declaracionPrincipal','Analizador sintactico.py',100),
-  ('sentencia -> input','sentencia',1,'p_sentencia','Analizador sintactico.py',103),
-  ('sentencia -> loop','sentencia',1,'p_sentencia','Analizador sintactico.py',104),
-  ('sentencia -> output','sentencia',1,'p_sentencia','Analizador sintactico.py',105),
-  ('sentencia -> RETURN NUMBER delimitadores','sentencia',3,'p_sentencia','Analizador sintactico.py',106),
-  ('sentencia -> variable','sentencia',1,'p_sentencia','Analizador sintactico.py',107),
-  ('sentencia -> conjunto','sentencia',1,'p_sentencia','Analizador sintactico.py',108),
-  ('sentencia -> cadena','sentencia',1,'p_sentencia','Analizador sintactico.py',109),
-  ('sentencia -> asignacion','sentencia',1,'p_sentencia','Analizador sintactico.py',110),
-  ('sentencia -> comparacion','sentencia',1,'p_sentencia','Analizador sintactico.py',111),
-  ('sentencia -> incremento','sentencia',1,'p_sentencia','Analizador sintactico.py',112),
-  ('sentencia -> operar','sentencia',1,'p_sentencia','Analizador sintactico.py',113),
-  ('sentencia -> declaracionVariable','sentencia',1,'p_sentencia','Analizador sintactico.py',114),
-  ('sentencia -> escape','sentencia',1,'p_sentencia','Analizador sintactico.py',115),
-  ('libreria -> INCLUDE cadena programa','libreria',3,'p_libreria','Analizador sintactico.py',118),
-  ('declaracionVariable -> tdato identificador delimitador','declaracionVariable',3,'p_declaracionVariable','Analizador sintactico.py',121),
-  ('variable -> tdato identificador SIGNO NUMBER delimitador','variable',5,'p_variable','Analizador sintactico.py',124),
-  ('variable -> tdato identificador SIGNO identificador delimitador','variable',5,'p_variable','Analizador sintactico.py',125),
-  ('conjunto -> LPAREN RPAREN','conjunto',2,'p_conjunto','Analizador sintactico.py',128),
-  ('conjunto -> LBRACE RBRACE','conjunto',2,'p_conjunto','Analizador sintactico.py',129),
-  ('conjunto -> LPAREN sentencia RPAREN','conjunto',3,'p_conjunto','Analizador sintactico.py',130),
-  ('conjunto -> LBRACE sentencia RBRACE','conjunto',3,'p_conjunto','Analizador sintactico.py',131),
-  ('conjunto -> QUOTE sentencia QUOTE','conjunto',3,'p_conjunto','Analizador sintactico.py',132),
-  ('conjunto -> LPAREN sentencia delimitador sentencia RPAREN','conjunto',5,'p_conjunto','Analizador sintactico.py',133),
-  ('conjunto -> QUOTE sentencia delimitadores','conjunto',3,'p_conjunto','Analizador sintactico.py',134),
-  ('cadena -> CADENA_FACTORIAL','cadena',1,'p_cadena','Analizador sintactico.py',137),
-  ('cadena -> CADENA_RESULTADO','cadena',1,'p_cadena','Analizador sintactico.py',138),
-  ('cadena -> CADENA_ESCAPE','cadena',1,'p_cadena','Analizador sintactico.py',139),
-  ('cadena -> STDIO_H','cadena',1,'p_cadena','Analizador sintactico.py',140),
-  ('input -> SCANF delimitadores delimitadores','input',3,'p_input','Analizador sintactico.py',143),
-  ('loop -> FOR delimitador delimitador','loop',3,'p_loop','Analizador sintactico.py',146),
-  ('output -> PRINTF delimitadores delimitadores','output',3,'p_output','Analizador sintactico.py',149),
-  ('asignacion -> identificador SIGNO NUMBER delimitador','asignacion',4,'p_asignacion','Analizador sintactico.py',152),
-  ('asignacion -> identificador SIGNO identificador delimitador','asignacion',4,'p_asignacion','Analizador sintactico.py',153),
-  ('comparacion -> identificador SIGNO identificador delimitador','comparacion',4,'p_comparacion','Analizador sintactico.py',156),
-  ('incremento -> identificador PLUSPLUS delimitador','incremento',3,'p_incremento','Analizador sintactico.py',159),
-  ('incremento -> PLUSPLUS identificador delimitador','incremento',3,'p_incremento','Analizador sintactico.py',160),
-  ('operar -> identificador TIMES identificador','operar',3,'p_operar','Analizador sintactico.py',163),
-  ('tdato -> INT','tdato',1,'p_tdato','Analizador sintactico.py',166),
-  ('tdato -> CHAR','tdato',1,'p_tdato','Analizador sintactico.py',167),
-  ('identificador -> IDENTIFIER','identificador',1,'p_identificador','Analizador sintactico.py',170),
-  ('escape -> QUOTE','escape',1,'p_escape','Analizador sintactico.py',173),
-  ('escape -> QUOTE ESCAPE_N sentencia','escape',3,'p_escape','Analizador sintactico.py',174),
-  ('delimitadores -> LPAREN','delimitadores',1,'p_delimitadores','Analizador sintactico.py',177),
-  ('delimitadores -> RPAREN','delimitadores',1,'p_delimitadores','Analizador sintactico.py',178),
-  ('delimitadores -> LBRACE','delimitadores',1,'p_delimitadores','Analizador sintactico.py',179),
-  ('delimitadores -> RBRACE','delimitadores',1,'p_delimitadores','Analizador sintactico.py',180),
-  ('delimitadores -> SEMICOLON','delimitadores',1,'p_delimitadores','Analizador sintactico.py',181),
-  ('delimitadores -> COMMA','delimitadores',1,'p_delimitadores','Analizador sintactico.py',182),
-  ('delimitadores -> QUOTE','delimitadores',1,'p_delimitadores','Analizador sintactico.py',183),
-  ('delimitadores -> delimitador','delimitadores',1,'p_delimitadores','Analizador sintactico.py',184),
-  ('delimitadores -> conjunto','delimitadores',1,'p_delimitadores','Analizador sintactico.py',185),
-  ('delimitadores -> conjunto SEMICOLON sentencia delimitadores','delimitadores',4,'p_delimitadores','Analizador sintactico.py',186),
-  ('delimitadores -> conjunto SEMICOLON sentencia','delimitadores',3,'p_delimitadores','Analizador sintactico.py',187),
+  ("S' -> bloque","S'",1,None,None,None),
+  ('bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL','bloque',3,'p_expression_bloque','prueba.py',46),
+  ('declaraciones -> declaracion declaraciones','declaraciones',2,'p_expression_declaraciones','prueba.py',51),
+  ('declaraciones -> declaracion','declaraciones',1,'p_expression_declaraciones','prueba.py',52),
+  ('declaracion -> asignacion','declaracion',1,'p_expression_declaracion','prueba.py',57),
+  ('declaracion -> funcion','declaracion',1,'p_expression_declaracion','prueba.py',58),
+  ('declaracion -> inclusion','declaracion',1,'p_expression_declaracion','prueba.py',59),
+  ('declaracion -> retorno','declaracion',1,'p_expression_declaracion','prueba.py',60),
+  ('operacion -> valor SIMBOLO_ESPECIAL valor','operacion',3,'p_expression_operacion','prueba.py',65),
+  ('valor -> IDENTIFICADOR','valor',1,'p_expression_valor','prueba.py',70),
+  ('valor -> NUMERO','valor',1,'p_expression_valor','prueba.py',71),
+  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL','asignacion',5,'p_expression_asignacion','prueba.py',76),
+  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL','asignacion',3,'p_expression_asignacion','prueba.py',77),
+  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL','asignacion',4,'p_expression_asignacion','prueba.py',78),
+  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor','asignacion',3,'p_expression_asignacion','prueba.py',79),
+  ('funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',84),
+  ('funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL','funcion',5,'p_expression_funcion','prueba.py',85),
+  ('funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',86),
+  ('argumentos -> argumento SIMBOLO_ESPECIAL argumentos','argumentos',3,'p_expression_argumentos','prueba.py',91),
+  ('argumentos -> argumento','argumentos',1,'p_expression_argumentos','prueba.py',92),
+  ('argumento -> asignacion','argumento',1,'p_expression_argumento','prueba.py',97),
+  ('argumento -> STRING','argumento',1,'p_expression_argumento','prueba.py',98),
+  ('argumento -> referencia','argumento',1,'p_expression_argumento','prueba.py',99),
+  ('argumento -> incremento','argumento',1,'p_expression_argumento','prueba.py',100),
+  ('argumento -> IDENTIFICADOR','argumento',1,'p_expression_argumento','prueba.py',101),
+  ('referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR','referencia',2,'p_expression_referencia','prueba.py',106),
+  ('incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL','incremento',2,'p_expression_incremento','prueba.py',111),
+  ('retorno -> RESERVADO valor SIMBOLO_ESPECIAL','retorno',3,'p_expression_retorno','prueba.py',116),
+  ('inclusion -> RESERVADO RESERVADO','inclusion',2,'p_expression_inclusion','prueba.py',121),
 ]

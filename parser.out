@@ -1,1 +1,636 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> bloque
+Rule 1     bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
+Rule 2     declaraciones -> declaracion declaraciones
+Rule 3     declaraciones -> declaracion
+Rule 4     declaracion -> asignacion
+Rule 5     declaracion -> funcion
+Rule 6     declaracion -> inclusion
+Rule 7     declaracion -> retorno
+Rule 8     operacion -> valor SIMBOLO_ESPECIAL valor
+Rule 9     valor -> IDENTIFICADOR
+Rule 10    valor -> NUMERO
+Rule 11    asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+Rule 12    asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+Rule 13    asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+Rule 14    asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor
+Rule 15    funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
+Rule 16    funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+Rule 17    funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
+Rule 18    argumentos -> argumento SIMBOLO_ESPECIAL argumentos
+Rule 19    argumentos -> argumento
+Rule 20    argumento -> asignacion
+Rule 21    argumento -> STRING
+Rule 22    argumento -> referencia
+Rule 23    argumento -> incremento
+Rule 24    argumento -> IDENTIFICADOR
+Rule 25    referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR
+Rule 26    incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL
+Rule 27    retorno -> RESERVADO valor SIMBOLO_ESPECIAL
+Rule 28    inclusion -> RESERVADO RESERVADO
+
+Terminals, with rules where they appear
+
+IDENTIFICADOR        : 9 11 12 13 14 24 25 26
+NUMERO               : 10
+RESERVADO            : 11 12 15 15 16 17 27 28 28
+SIMBOLO_ESPECIAL     : 1 1 8 11 11 12 13 13 14 15 15 16 16 16 17 17 18 25 26 27
+STRING               : 21
+error                : 
+
+Nonterminals, with rules where they appear
+
+argumento            : 18 19
+argumentos           : 16 17 18
+asignacion           : 4 20
+bloque               : 15 17 0
+declaracion          : 2 3
+declaraciones        : 1 2
+funcion              : 5
+inclusion            : 6
+incremento           : 23
+operacion            : 13
+referencia           : 22
+retorno              : 7
+valor                : 8 8 11 14 27
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . bloque
+    (1) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 2
+
+    bloque                         shift and go to state 1
+
+state 1
+
+    (0) S' -> bloque .
+
+
+
+state 2
+
+    (1) bloque -> SIMBOLO_ESPECIAL . declaraciones SIMBOLO_ESPECIAL
+    (2) declaraciones -> . declaracion declaraciones
+    (3) declaraciones -> . declaracion
+    (4) declaracion -> . asignacion
+    (5) declaracion -> . funcion
+    (6) declaracion -> . inclusion
+    (7) declaracion -> . retorno
+    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
+    (15) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
+    (16) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+    (17) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
+    (28) inclusion -> . RESERVADO RESERVADO
+    (27) retorno -> . RESERVADO valor SIMBOLO_ESPECIAL
+
+    RESERVADO       shift and go to state 9
+    IDENTIFICADOR   shift and go to state 10
+
+    declaraciones                  shift and go to state 3
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+    inclusion                      shift and go to state 7
+    retorno                        shift and go to state 8
+
+state 3
+
+    (1) bloque -> SIMBOLO_ESPECIAL declaraciones . SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 11
+
+
+state 4
+
+    (2) declaraciones -> declaracion . declaraciones
+    (3) declaraciones -> declaracion .
+    (2) declaraciones -> . declaracion declaraciones
+    (3) declaraciones -> . declaracion
+    (4) declaracion -> . asignacion
+    (5) declaracion -> . funcion
+    (6) declaracion -> . inclusion
+    (7) declaracion -> . retorno
+    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
+    (15) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
+    (16) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+    (17) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
+    (28) inclusion -> . RESERVADO RESERVADO
+    (27) retorno -> . RESERVADO valor SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL reduce using rule 3 (declaraciones -> declaracion .)
+    RESERVADO       shift and go to state 9
+    IDENTIFICADOR   shift and go to state 10
+
+    declaracion                    shift and go to state 4
+    declaraciones                  shift and go to state 12
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+    inclusion                      shift and go to state 7
+    retorno                        shift and go to state 8
+
+state 5
+
+    (4) declaracion -> asignacion .
+
+    RESERVADO       reduce using rule 4 (declaracion -> asignacion .)
+    IDENTIFICADOR   reduce using rule 4 (declaracion -> asignacion .)
+    SIMBOLO_ESPECIAL reduce using rule 4 (declaracion -> asignacion .)
+
+
+state 6
+
+    (5) declaracion -> funcion .
+
+    RESERVADO       reduce using rule 5 (declaracion -> funcion .)
+    IDENTIFICADOR   reduce using rule 5 (declaracion -> funcion .)
+    SIMBOLO_ESPECIAL reduce using rule 5 (declaracion -> funcion .)
+
+
+state 7
+
+    (6) declaracion -> inclusion .
+
+    RESERVADO       reduce using rule 6 (declaracion -> inclusion .)
+    IDENTIFICADOR   reduce using rule 6 (declaracion -> inclusion .)
+    SIMBOLO_ESPECIAL reduce using rule 6 (declaracion -> inclusion .)
+
+
+state 8
+
+    (7) declaracion -> retorno .
+
+    RESERVADO       reduce using rule 7 (declaracion -> retorno .)
+    IDENTIFICADOR   reduce using rule 7 (declaracion -> retorno .)
+    SIMBOLO_ESPECIAL reduce using rule 7 (declaracion -> retorno .)
+
+
+state 9
+
+    (11) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL
+    (15) funcion -> RESERVADO . RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
+    (16) funcion -> RESERVADO . SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+    (17) funcion -> RESERVADO . SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
+    (28) inclusion -> RESERVADO . RESERVADO
+    (27) retorno -> RESERVADO . valor SIMBOLO_ESPECIAL
+    (9) valor -> . IDENTIFICADOR
+    (10) valor -> . NUMERO
+
+    IDENTIFICADOR   shift and go to state 14
+    RESERVADO       shift and go to state 13
+    SIMBOLO_ESPECIAL shift and go to state 15
+    NUMERO          shift and go to state 17
+
+    valor                          shift and go to state 16
+
+state 10
+
+    (13) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL valor
+
+    SIMBOLO_ESPECIAL shift and go to state 18
+
+
+state 11
+
+    (1) bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .
+
+    $end            reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
+    RESERVADO       reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
+
+
+state 12
+
+    (2) declaraciones -> declaracion declaraciones .
+
+    SIMBOLO_ESPECIAL reduce using rule 2 (declaraciones -> declaracion declaraciones .)
+
+
+state 13
+
+    (15) funcion -> RESERVADO RESERVADO . SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
+    (28) inclusion -> RESERVADO RESERVADO .
+
+  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
+    SIMBOLO_ESPECIAL shift and go to state 19
+    RESERVADO       reduce using rule 28 (inclusion -> RESERVADO RESERVADO .)
+    IDENTIFICADOR   reduce using rule 28 (inclusion -> RESERVADO RESERVADO .)
+
+  ! SIMBOLO_ESPECIAL [ reduce using rule 28 (inclusion -> RESERVADO RESERVADO .) ]
+
+
+state 14
+
+    (11) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL
+    (9) valor -> IDENTIFICADOR .
+
+  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
+    SIMBOLO_ESPECIAL shift and go to state 20
+
+  ! SIMBOLO_ESPECIAL [ reduce using rule 9 (valor -> IDENTIFICADOR .) ]
+
+
+state 15
+
+    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL . argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL . argumentos SIMBOLO_ESPECIAL bloque
+    (18) argumentos -> . argumento SIMBOLO_ESPECIAL argumentos
+    (19) argumentos -> . argumento
+    (20) argumento -> . asignacion
+    (21) argumento -> . STRING
+    (22) argumento -> . referencia
+    (23) argumento -> . incremento
+    (24) argumento -> . IDENTIFICADOR
+    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
+    (25) referencia -> . SIMBOLO_ESPECIAL IDENTIFICADOR
+    (26) incremento -> . IDENTIFICADOR SIMBOLO_ESPECIAL
+
+    STRING          shift and go to state 26
+    IDENTIFICADOR   shift and go to state 29
+    RESERVADO       shift and go to state 21
+    SIMBOLO_ESPECIAL shift and go to state 22
+
+    argumentos                     shift and go to state 23
+    argumento                      shift and go to state 24
+    asignacion                     shift and go to state 25
+    referencia                     shift and go to state 27
+    incremento                     shift and go to state 28
+
+state 16
+
+    (27) retorno -> RESERVADO valor . SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 30
+
+
+state 17
+
+    (10) valor -> NUMERO .
+
+    SIMBOLO_ESPECIAL reduce using rule 10 (valor -> NUMERO .)
+    RESERVADO       reduce using rule 10 (valor -> NUMERO .)
+    IDENTIFICADOR   reduce using rule 10 (valor -> NUMERO .)
+
+
+state 18
+
+    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . valor
+    (8) operacion -> . valor SIMBOLO_ESPECIAL valor
+    (9) valor -> . IDENTIFICADOR
+    (10) valor -> . NUMERO
+
+    IDENTIFICADOR   shift and go to state 31
+    NUMERO          shift and go to state 17
+
+    operacion                      shift and go to state 32
+    valor                          shift and go to state 33
+
+state 19
+
+    (15) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL . SIMBOLO_ESPECIAL bloque
+
+    SIMBOLO_ESPECIAL shift and go to state 34
+
+
+state 20
+
+    (11) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL . valor SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .
+    (9) valor -> . IDENTIFICADOR
+    (10) valor -> . NUMERO
+
+  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
+    RESERVADO       reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   shift and go to state 31
+    NUMERO          shift and go to state 17
+
+  ! IDENTIFICADOR   [ reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .) ]
+
+    valor                          shift and go to state 35
+
+state 21
+
+    (11) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL
+
+    IDENTIFICADOR   shift and go to state 36
+
+
+state 22
+
+    (25) referencia -> SIMBOLO_ESPECIAL . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 37
+
+
+state 23
+
+    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos . SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos . SIMBOLO_ESPECIAL bloque
+
+    SIMBOLO_ESPECIAL shift and go to state 38
+
+
+state 24
+
+    (18) argumentos -> argumento . SIMBOLO_ESPECIAL argumentos
+    (19) argumentos -> argumento .
+
+  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
+    SIMBOLO_ESPECIAL shift and go to state 39
+
+  ! SIMBOLO_ESPECIAL [ reduce using rule 19 (argumentos -> argumento .) ]
+
+
+state 25
+
+    (20) argumento -> asignacion .
+
+    SIMBOLO_ESPECIAL reduce using rule 20 (argumento -> asignacion .)
+
+
+state 26
+
+    (21) argumento -> STRING .
+
+    SIMBOLO_ESPECIAL reduce using rule 21 (argumento -> STRING .)
+
+
+state 27
+
+    (22) argumento -> referencia .
+
+    SIMBOLO_ESPECIAL reduce using rule 22 (argumento -> referencia .)
+
+
+state 28
+
+    (23) argumento -> incremento .
+
+    SIMBOLO_ESPECIAL reduce using rule 23 (argumento -> incremento .)
+
+
+state 29
+
+    (24) argumento -> IDENTIFICADOR .
+    (13) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL valor
+    (26) incremento -> IDENTIFICADOR . SIMBOLO_ESPECIAL
+
+  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
+    SIMBOLO_ESPECIAL shift and go to state 40
+
+  ! SIMBOLO_ESPECIAL [ reduce using rule 24 (argumento -> IDENTIFICADOR .) ]
+
+
+state 30
+
+    (27) retorno -> RESERVADO valor SIMBOLO_ESPECIAL .
+
+    RESERVADO       reduce using rule 27 (retorno -> RESERVADO valor SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   reduce using rule 27 (retorno -> RESERVADO valor SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 27 (retorno -> RESERVADO valor SIMBOLO_ESPECIAL .)
+
+
+state 31
+
+    (9) valor -> IDENTIFICADOR .
+
+    SIMBOLO_ESPECIAL reduce using rule 9 (valor -> IDENTIFICADOR .)
+    RESERVADO       reduce using rule 9 (valor -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 9 (valor -> IDENTIFICADOR .)
+
+
+state 32
+
+    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion . SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 41
+
+
+state 33
+
+    (14) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .
+    (8) operacion -> valor . SIMBOLO_ESPECIAL valor
+
+  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
+    RESERVADO       reduce using rule 14 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .)
+    IDENTIFICADOR   reduce using rule 14 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .)
+    SIMBOLO_ESPECIAL shift and go to state 42
+
+  ! SIMBOLO_ESPECIAL [ reduce using rule 14 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .) ]
+
+
+state 34
+
+    (15) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL . bloque
+    (1) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 2
+
+    bloque                         shift and go to state 43
+
+state 35
+
+    (11) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor . SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 44
+
+
+state 36
+
+    (11) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 20
+
+
+state 37
+
+    (25) referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR .
+
+    SIMBOLO_ESPECIAL reduce using rule 25 (referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR .)
+
+
+state 38
+
+    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL . SIMBOLO_ESPECIAL
+    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL . bloque
+    (1) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
+
+    SIMBOLO_ESPECIAL shift and go to state 45
+
+    bloque                         shift and go to state 46
+
+state 39
+
+    (18) argumentos -> argumento SIMBOLO_ESPECIAL . argumentos
+    (18) argumentos -> . argumento SIMBOLO_ESPECIAL argumentos
+    (19) argumentos -> . argumento
+    (20) argumento -> . asignacion
+    (21) argumento -> . STRING
+    (22) argumento -> . referencia
+    (23) argumento -> . incremento
+    (24) argumento -> . IDENTIFICADOR
+    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
+    (25) referencia -> . SIMBOLO_ESPECIAL IDENTIFICADOR
+    (26) incremento -> . IDENTIFICADOR SIMBOLO_ESPECIAL
+
+    STRING          shift and go to state 26
+    IDENTIFICADOR   shift and go to state 29
+    RESERVADO       shift and go to state 21
+    SIMBOLO_ESPECIAL shift and go to state 22
+
+    argumento                      shift and go to state 24
+    argumentos                     shift and go to state 47
+    asignacion                     shift and go to state 25
+    referencia                     shift and go to state 27
+    incremento                     shift and go to state 28
+
+state 40
+
+    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . valor
+    (26) incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL .
+    (8) operacion -> . valor SIMBOLO_ESPECIAL valor
+    (9) valor -> . IDENTIFICADOR
+    (10) valor -> . NUMERO
+
+    SIMBOLO_ESPECIAL reduce using rule 26 (incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   shift and go to state 31
+    NUMERO          shift and go to state 17
+
+    operacion                      shift and go to state 32
+    valor                          shift and go to state 33
+
+state 41
+
+    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .
+
+    RESERVADO       reduce using rule 13 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   reduce using rule 13 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 13 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .)
+
+
+state 42
+
+    (8) operacion -> valor SIMBOLO_ESPECIAL . valor
+    (9) valor -> . IDENTIFICADOR
+    (10) valor -> . NUMERO
+
+    IDENTIFICADOR   shift and go to state 31
+    NUMERO          shift and go to state 17
+
+    valor                          shift and go to state 48
+
+state 43
+
+    (15) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .
+
+    RESERVADO       reduce using rule 15 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
+    IDENTIFICADOR   reduce using rule 15 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
+    SIMBOLO_ESPECIAL reduce using rule 15 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
+
+
+state 44
+
+    (11) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .
+
+    RESERVADO       reduce using rule 11 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   reduce using rule 11 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .)
+    SIMBOLO_ESPECIAL reduce using rule 11 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .)
+
+
+state 45
+
+    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .
+    (1) bloque -> SIMBOLO_ESPECIAL . declaraciones SIMBOLO_ESPECIAL
+    (2) declaraciones -> . declaracion declaraciones
+    (3) declaraciones -> . declaracion
+    (4) declaracion -> . asignacion
+    (5) declaracion -> . funcion
+    (6) declaracion -> . inclusion
+    (7) declaracion -> . retorno
+    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
+    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
+    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
+    (15) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
+    (16) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
+    (17) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
+    (28) inclusion -> . RESERVADO RESERVADO
+    (27) retorno -> . RESERVADO valor SIMBOLO_ESPECIAL
+
+  ! shift/reduce conflict for RESERVADO resolved as shift
+  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
+    SIMBOLO_ESPECIAL reduce using rule 16 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .)
+    RESERVADO       shift and go to state 9
+    IDENTIFICADOR   shift and go to state 10
+
+  ! RESERVADO       [ reduce using rule 16 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .) ]
+  ! IDENTIFICADOR   [ reduce using rule 16 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .) ]
+
+    declaraciones                  shift and go to state 3
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+    inclusion                      shift and go to state 7
+    retorno                        shift and go to state 8
+
+state 46
+
+    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .
+
+    RESERVADO       reduce using rule 17 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .)
+    IDENTIFICADOR   reduce using rule 17 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .)
+    SIMBOLO_ESPECIAL reduce using rule 17 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .)
+
+
+state 47
+
+    (18) argumentos -> argumento SIMBOLO_ESPECIAL argumentos .
+
+    SIMBOLO_ESPECIAL reduce using rule 18 (argumentos -> argumento SIMBOLO_ESPECIAL argumentos .)
+
+
+state 48
+
+    (8) operacion -> valor SIMBOLO_ESPECIAL valor .
+
+    SIMBOLO_ESPECIAL reduce using rule 8 (operacion -> valor SIMBOLO_ESPECIAL valor .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 13 resolved as shift
+WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 14 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFICADOR in state 20 resolved as shift
+WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 24 resolved as shift
+WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 29 resolved as shift
+WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 33 resolved as shift
+WARNING: shift/reduce conflict for RESERVADO in state 45 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFICADOR in state 45 resolved as shift
