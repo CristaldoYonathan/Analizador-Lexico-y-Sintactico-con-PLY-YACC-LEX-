@@ -41,6 +41,8 @@ def t_error(t):
 # Construir el lexer
 lexer = lex.lex() 
 
+###############################################################################################
+
 # Definición de reglas de producción 
 def p_expression_bloque(p):
     ''' bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
@@ -51,29 +53,11 @@ def p_expression_declaraciones(p):
     ''' declaraciones : declaracion declaraciones 
                       | declaracion
     ''' 
+    pass
 #    if len(p) == 3:
 #        p[0] = str(p[1]) + str(p[2])
 #    else:
 #        p[0] = str(p[1])
-
-# SIMBOLO_ESPECIAL
-# p_expression_operacion(p):
-#      ''' expression : expression SIMBOLO_ESPECIAL expression 
-#                     | expression SIMBOLO_ESPECIAL
-#      '''
-#      if len(p) == 4:
-#      if p[2] == '+'  : p[0] = p[1] + p[3]
-#      if p[2] == '*'  : p[0] = p[1] + p[3]
-#      if p[2] == '++'  : p[0] = p[1] + 1 
-#      if p[2] == '='  : 
-#          p[1] = p[3] 
-#          p[0] = p[1]
-#      if len(p) == 3: 
-#      if p[2] == '<=':
-#          if p[1] <= p[3]:
-#              p[0] = 1
-#          else:
-#              p[0] = 0
 
 def p_expression_declaracion(p):
     ''' declaracion : asignacion 
@@ -151,8 +135,8 @@ def p_expression_retorno(p):
 def p_expression_inclusion(p):
     ''' inclusion : RESERVADO RESERVADO
     '''
-    if p[1] == '#include' and p[2] == '<stdio.h>':
-        p[0] = '#include <stdio.h>'
+#    if p[1] == '#include' and p[2] == '<stdio.h>':
+#        p[0] = '#include <stdio.h>'
 
 
 # Manejo de errores de parser
@@ -163,10 +147,26 @@ def p_error(p):
 # Construir el parser
 parser = yacc.yacc()
 
-# Cadena de entrada
-input_string = '#include <stdio.h> int main({int c;int n;int fact = 1;printf("Ingrese el numero a calcular el factorial: \\n");scanf("%d", &n);for (c = 1; c <= n; c++){fact = fact * c;}printf("El factorial de %d es: %d\\n", n, fact);return 0;}' 
+###############################################################################################
 
-input_string = input('Ingrese una cadena de texto: ')
+# Cadena de entrada
+input_string = '''
+#include <stdio.h>
+        int main ( ) {
+        ㅤㅤㅤint c;
+        ㅤㅤㅤint n;
+        ㅤㅤㅤint fact = 1;
+        ㅤㅤㅤprintf("Ingrese el numero a calcular el factorial: \n");
+        ㅤㅤㅤscanf("%d ", &n);
+        ㅤㅤㅤfor (c = 1; c <= n; c++){
+        ㅤㅤㅤㅤㅤㅤfact = fact * c;
+        ㅤㅤㅤ}
+        ㅤㅤㅤprintf("El factorial de %d es: %d\n", n, fact);
+        ㅤㅤㅤreturn 0;
+}
+'''
+
+#input_string = input('Ingrese una cadena de texto: ')
 
 # Ejecutar el lexer
 lexer.input(input_string)
@@ -176,7 +176,7 @@ while True:
     token = lexer.token()
     if not token:
         break 
-    #print(str(token.type) + "  →  " + str(token.value) + " " + str(token.lineno) + " " + str(token.lexpos))
+    print(str(token.type) + "  →  " + str(token.value) + " " + str(token.lineno) + " " + str(token.lexpos))
 
 # Ejecutar el parser
 result = parser.parse(input_string) 
