@@ -70,8 +70,8 @@
  ### Codigo en C a analizar
 <code>#include <stdio.h>
 int main ( ) {
-ㅤㅤㅤint c = 1;
-ㅤㅤㅤint n = 1;
+ㅤㅤㅤint c;
+ㅤㅤㅤint n;
 ㅤㅤㅤint fact = 1;
 ㅤㅤㅤprintf("Ingrese el numero a calcular el factorial: \n");
 ㅤㅤㅤscanf("%d ", &n); 
