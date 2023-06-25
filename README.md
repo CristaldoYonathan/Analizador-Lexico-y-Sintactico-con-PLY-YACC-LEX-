@@ -3,14 +3,15 @@
 
 ## ANALIZADOR LEXICO Y SINTÁCTICO CON PLY (YACC/LEX)
 
- ### Integrantes:
-- Anton Belen
-- Berent Natali
-- Blazco Emiliano
-- Cristaldo Ariel
-- Fernandez Matias
-- Quintana Guillermo
-- Stigelmeier Marcela
+### Integrantes:
+- Anton Belen (belenantonok@gamil.com)
+- Berent Natali (nataberent@gmail.com)
+- Blazco Emiliano(emilianoblazco@gmail.com)
+- Cristaldo Ariel (cristaldoyonathanariel@gmail.com)
+- Fernandez Matias(matias.fernandez099@gmail.com)
+- Quintana Guillermo (guille121093@gmail.com)
+- Stigelmeier Marcela(stigelmarce@gmail.com)
+
 
 
  ### Codigo en C a analizar
