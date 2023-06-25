@@ -1,87 +1,110 @@
 
 # TEORIA DE LA COMPUTACION
 
-  
-
 ## ANALIZADOR LEXICO Y SINTÁCTICO CON PLY (YACC/LEX)
 
-  
+ ### Integrantes:
+- Anton Belen
+- Berent Natali
+- Blazco Emiliano
+- Cristaldo Ariel
+- Fernandez Matias
+- Quintana Guillermo
+- Stigelmeier Marcela
+
+
+ ### Codigo en C a analizar
+```c
+#include <stdio.h>
+int main ( ) {
+    int c = 1;
+    int n = 1;
+    int fact = 1;
+
+    printf("Ingrese el numero a calcular el factorial: \n");
+    scanf("%d ", &n);
+
+    for (c = 1; c <= n; c++){ 
+        fact = fact * c; 
+    }
+
+    printf("El factorial de %d es: %d\n", n, fact);
+    return 0;
+}
+```
 
 ### TOKENS
 - NUMERO
 - RESERVADO
-- STRING
 - IDENTIFICADOR
-- SIMBOLO_ESPECIAL  
+- STRING
+- MASMAS
+- MULT
+- IGUAL
+- PUNTOCOMA
+- COMA
+- PARENTESIS_ABIERTO
+- PARENTESIS_CERRADO
+- LLAVE_ABIERTA
+- LLAVE_CERRADA
+- MENOR_IGUAL
+- AMPERSON
 
 ### Expresiones regulares para los tokens 
-| Reglas|         Expresiones regulares       |
-|----------|----------------------------|
-| t_RESERVADO | r'(int&#124;main&#124;for&#124;return&#124;printf&#124;scanf&#124;\#include&#124;\<stdio.h\>)' |
-| t_SIMBOLO_ESPECIAL | r'(\\+\\+&#124;\\*&#124;\\=&#124;\\;&#124;\\,&#124;\\(&#124;\\)&#124;\\{&#124;\\}&#124;\\<=&#124;\\&)'   |
-| t_STRING | r'"(\[\^"\]\*)"'   |
-| t_IDENTIFICADOR | r'([a-z]&#124;[A-Z])+'   | 
+| Token                   | Expresiones regulares                               |
+|-------------------------|----------------------------------------------------|
+| t_RESERVADO             | r'(int\|main\|for\|return\|printf\|scanf\|#include\|\<stdio.h\>)' |
+| t_IDENTIFICADOR         | r'([a-z]\|[A-Z])+'                                 |
+| t_STRING                | r'"([^"\\\]|\\.)*"'                                 |
+| t_MASMAS                | r'\+\+'                                            |
+| t_MULT                  | r'\*'                                              |
+| t_IGUAL                 | r'='                                               |
+| t_PUNTOCOMA             | r';'                                               |
+| t_COMA                  | r','                                               |
+| t_PARENTESIS_ABIERTO    | r'\('                                              |
+| t_PARENTESIS_CERRADO    | r'\)'                                              |
+| t_LLAVE_ABIERTA         | r'\{'                                              |
+| t_LLAVE_CERRADA         | r'\}'                                              |
+| t_MENOR_IGUAL           | r'\<='                                             |
+| t_AMPERSON              | r'\&'                                              |
+
 
 ### Gramatica:
 
-- **bloque**:
-	- SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL 
-- **declaraciones**:
-	- declaracion declaraciones 
-	- declaracion
-- **declaracion**: 
-	- asignacion
-	- funcion 
-	- inclusion
-	- retorno
-- **operacion**:
-	- valor SIMBOLO_ESPECIAL valor
-- **valor**:
-  - IDENTIFICADOR
-  - NUMERO
-- **asignacion** : 
-  - RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-  - RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-  - RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL 
-  - IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-  - IDENTIFICADOR SIMBOLO_ESPECIAL valor
-- **funcion**:
-	- RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque 
-	- RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL 
-	- RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
-- **argumentos** :
-	- argumento SIMBOLO_ESPECIAL argumentos
-	- argumento
-- **argumento** :
-	- asignacion 
-	- STRING 
-	- referencia 
-	- incremento 
-	- IDENTIFICADOR
-- **referencia**:
-	- SIMBOLO_ESPECIAL IDENTIFICADOR
-- **incremento**:
-	- IDENTIFICADOR SIMBOLO_ESPECIAL
-- **retorno**:
-	- RESERVADO valor SIMBOLO_ESPECIAL
-- **inclusion**:
-	- RESERVADO RESERVADO
-
- ### Codigo en C a analizar
-<code>#include <stdio.h>
-int main ( ) {
-ㅤㅤㅤint c;
-ㅤㅤㅤint n;
-ㅤㅤㅤint fact = 1;
-ㅤㅤㅤprintf("Ingrese el numero a calcular el factorial: \n");
-ㅤㅤㅤscanf("%d ", &n); 
-ㅤㅤㅤfor (c = 1; c <= n; c++){ 
-ㅤㅤㅤㅤㅤㅤfact = fact * c; 
-ㅤㅤㅤ}
-ㅤㅤㅤprintf("El factorial de %d es: %d\n", n, fact);
-ㅤㅤㅤreturn 0;
-}
- </code>
+| Regla           | Definición                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| declaraciones   | `declaracion declaraciones` \| `declaracion`                                                                                                            |
+| declaracion     | `asignacion` \| `funcion` \| `inclusion` \| `retorno`                                                                                                    |
+| inclusion       | `RESERVADO RESERVADO`                                                                                                                                   |
+| funcion         | `RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque` \| `RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA` \| `RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque` |
+| bloque          | `LLAVE_ABIERTA declaraciones LLAVE_CERRADA`                                                                                                              |
+| asignacion      | `RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA` \| `IDENTIFICADOR IGUAL valor` \| `IDENTIFICADOR MENOR_IGUAL valor` \| `IDENTIFICADOR IGUAL operacion PUNTOCOMA`                                               |
+| valor           | `IDENTIFICADOR` \| `NUMERO`                                                                                                                             |
+| argumentos      | `argumento` \| `argumento COMA argumentos` \| `argumento PUNTOCOMA argumentos`                                                                           |
+| argumento       | `STRING` \| `referencia` \| `IDENTIFICADOR` \| `asignacion` \| `incremento`                                                                              |
+| referencia      | `AMPERSON IDENTIFICADOR`                                                                                                                                 |
+| incremento      | `IDENTIFICADOR MASMAS`                                                                                                                                   |
+| operacion       | `valor MULT valor`                                                                                                                                       |
+| retorno         | `RESERVADO valor PUNTOCOMA`                                                                                                                              |
  
-### Con lo cual obtenemos la siguiente tabla
-<table><thead><tr><th>Declaración</th><th>Tipo</th><th>Gramática</th></tr></thead><tbody><tr><td><code>#include &lt;stdio.h&gt;</code></td><td>inclusión</td><td><code>RESERVADO RESERVADO</code></td></tr><tr><td><code>int main(){ }</code></td><td>función</td><td><code>RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque</code></td></tr><tr><td><code>int c; int n;</code></td><td>asignación</td><td><code>RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>int fact = 1;</code></td><td>asignación</td><td><code>RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>printf( A );</code></td><td>función</td><td><code>RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>"Ingrese el numero a calcular el factorial: \n"</code></td><td>argumentos</td><td><code>STRING</code></td></tr><tr><td><code>scanf( A );</code></td><td>función</td><td><code>RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>"%d ", &amp;n</code></td><td>argumentos</td><td><code>argumento SIMBOLO_ESPECIAL argumentos</code></td></tr><tr><td><code>"%d "</code></td><td>argumento</td><td><code>STRING</code></td></tr><tr><td><code>&amp;n</code></td><td>referencia</td><td><code>SIMBOLO_ESPECIAL IDENTIFICADOR</code></td></tr><tr><td><code>for ( A ){ }</code></td><td>función</td><td><code>RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque</code></td></tr><tr><td><code>c = 1; c &lt;= n; c++</code></td><td>argumentos</td><td><code>argumento SIMBOLO_ESPECIAL argumentos</code></td></tr><tr><td><code>c = 1</code></td><td>asignación</td><td><code>IDENTIFICADOR SIMBOLO_ESPECIAL valor</code></td></tr><tr><td><code>c &lt;= n</code></td><td>asignación</td><td><code>IDENTIFICADOR SIMBOLO_ESPECIAL valor</code></td></tr><tr><td><code>c++</code></td><td>incremento</td><td><code>IDENTIFICADOR SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>fact = fact * c;</code></td><td>asignación</td><td><code>IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>fact * c</code></td><td>operación</td><td><code>valor SIMBOLO_ESPECIAL valor</code></td></tr><tr><td><code>printf("El factorial de %d es: %d\n", n, fact);</code></td><td>función</td><td><code>RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL</code></td></tr><tr><td><code>return 0;</code></td><td>retorno</td><td><code>RESERVADO valor SIMBOLO_ESPECIAL</code></td></tr></tbody></table>
+| Declaración                                                          | Tipo        | Gramática                                                                                                       |
+|----------------------------------------------------------------------|-------------|-----------------------------------------------------------------------------------------------------------------|
+| `#include <stdio.h>`                                                 | inclusión   | `RESERVADO RESERVADO`                                                                                           |
+| `int main(){ }`                                                      | función     | `RESERVADO IDENTIFICADOR PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque`                                          |
+| `int c = 1; int n = 1; int fact = 1;`                                | asignación  | `RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA`                                                                 |
+| `printf("Ingrese el numero a calcular el factorial: \\n");`          | función     | `RESERVADO PARENTESIS_ABIERTO argumento PARENTESIS_CERRADO PUNTOCOMA`                                           |
+| `scanf("%d", &n);`                                                   | función     | `RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA`                                          |
+| `for (c = 1; c <= n; c++)`                                           | función     | `RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque`                                             |
+| `fact = fact * c;`                                                   | asignación  | `IDENTIFICADOR IGUAL operacion PUNTOCOMA`                                                                       |
+| `printf("El factorial de %d es: %d\\n", n, fact);`                   | función     | `RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA`                                          |
+| `return 0;`                                                          | retorno     | `RESERVADO valor PUNTOCOMA`                                                                                     |
+| `&n`                                                                 | referencia  | `AMPERSON IDENTIFICADOR`                                                                                        |
+| `c = 1; c <= n; c++`                                                 | argumentos  | `argumento PUNTOCOMA argumentos`                                                                                 |
+| `"Ingrese el numero a calcular el factorial: \\n"`                   | argumento   | `STRING`                                                                                                        |
+| `"%d", &n`                                                           | argumentos  | `argumento COMA argumentos`                                                                                     |
+| `"%d"`                                                               | argumento   | `STRING`                                                                                                        |
+| `c = 1`                                                              | asignación  | `IDENTIFICADOR IGUAL valor`                                                                                     |
+| `c <= n`                                                             | asignación  | `IDENTIFICADOR MENOR_IGUAL valor`                                                                               |
+| `c++`                                                                | incremento  | `IDENTIFICADOR MASMAS`                                                                                          |
+| `fact * c`                                                           | operación   | `valor MULT valor`                                                                                              |
+| `"El factorial de %d es: %d\\n", n, fact`                            | argumentos  | `argumento COMA argumentos`                                                                                     |

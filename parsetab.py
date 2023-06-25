@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'IDENTIFICADOR NUMERO RESERVADO SIMBOLO_ESPECIAL STRING bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL\n     declaraciones : declaracion declaraciones \n                      | declaracion\n     declaracion : asignacion \n                    | funcion \n                    | inclusion \n                    | retorno \n     operacion : valor SIMBOLO_ESPECIAL valor \n     valor : IDENTIFICADOR\n                | NUMERO\n     asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL \n                    | RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL\n                    | IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL \n                    | IDENTIFICADOR SIMBOLO_ESPECIAL valor \n     funcion : RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque \n                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL \n                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque\n     argumentos : argumento SIMBOLO_ESPECIAL argumentos \n                    | argumento\n     argumento : asignacion\n                    | STRING\n                    | referencia\n                    | incremento\n                    | IDENTIFICADOR\n     referencia : SIMBOLO_ESPECIAL IDENTIFICADOR\n     incremento : IDENTIFICADOR SIMBOLO_ESPECIAL\n     retorno : RESERVADO valor SIMBOLO_ESPECIAL\n     inclusion : RESERVADO RESERVADO\n    '
+_lr_signature = 'AMPERSON COMA IDENTIFICADOR IGUAL LLAVE_ABIERTA LLAVE_CERRADA MASMAS MENOR_IGUAL MULT NUMERO PARENTESIS_ABIERTO PARENTESIS_CERRADO PUNTOCOMA RESERVADO STRING\n    declaraciones : declaracion declaraciones\n                  | declaracion\n    \n    declaracion : asignacion\n                | funcion\n                | inclusion\n                | retorno\n    \n    inclusion : RESERVADO RESERVADO\n    \n    funcion : RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque\n            | RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA\n            | RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque\n\n    \n    bloque : LLAVE_ABIERTA declaraciones LLAVE_CERRADA\n    \n    asignacion : RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA\n               | IDENTIFICADOR IGUAL valor\n               | IDENTIFICADOR MENOR_IGUAL valor \n               | IDENTIFICADOR IGUAL operacion PUNTOCOMA\n    \n    valor : IDENTIFICADOR\n          | NUMERO\n    \n    argumentos : argumento\n               | argumento COMA argumentos\n               | argumento PUNTOCOMA argumentos\n    \n    argumento : STRING\n              | referencia\n              | IDENTIFICADOR\n              | asignacion\n              | incremento\n    \n    referencia : AMPERSON IDENTIFICADOR\n    \n    incremento : IDENTIFICADOR MASMAS\n    \n    operacion : valor MULT valor\n    \n    retorno : RESERVADO valor PUNTOCOMA\n    '
     
-_lr_action_items = {'SIMBOLO_ESPECIAL':([0,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,20,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48,],[2,11,-3,-4,-5,-6,-7,15,18,-1,-2,19,20,22,30,-10,34,-12,38,39,-20,-21,-22,-23,40,-27,-9,41,42,2,44,20,-25,45,22,-26,-13,-15,-11,-16,-17,-18,-8,]),'$end':([1,11,],[0,-1,]),'RESERVADO':([2,4,5,6,7,8,9,11,13,15,17,20,30,31,33,39,41,43,44,45,46,],[9,9,-4,-5,-6,-7,13,-1,-28,21,-10,-12,-27,-9,-14,21,-13,-15,-11,9,-17,]),'IDENTIFICADOR':([2,4,5,6,7,8,9,11,13,15,17,18,20,21,22,30,31,33,39,40,41,42,43,44,45,46,],[10,10,-4,-5,-6,-7,14,-1,-28,29,-10,31,31,36,37,-27,-9,-14,29,31,-13,31,-15,-11,10,-17,]),'NUMERO':([9,18,20,40,42,],[17,17,17,17,17,]),'STRING':([15,39,],[26,26,]),}
+_lr_action_items = {'RESERVADO':([0,2,3,4,5,6,7,10,13,14,19,29,30,32,37,38,42,43,44,45,46,47,52,],[7,7,-3,-4,-5,-6,10,-7,20,-17,-29,-16,-13,-14,20,20,-15,-8,7,-12,-9,-10,-11,]),'IDENTIFICADOR':([0,2,3,4,5,6,7,10,13,14,15,16,18,19,20,28,29,30,32,37,38,41,42,43,44,45,46,47,52,],[8,8,-3,-4,-5,-6,11,-7,25,-17,29,29,29,-29,35,40,-16,-13,-14,25,25,29,-15,-8,8,-12,-9,-10,-11,]),'$end':([1,2,3,4,5,6,9,10,14,19,29,30,32,42,43,45,46,47,52,],[0,-2,-3,-4,-5,-6,-1,-7,-17,-29,-16,-13,-14,-15,-8,-12,-9,-10,-11,]),'LLAVE_CERRADA':([2,3,4,5,6,9,10,14,19,29,30,32,42,43,45,46,47,51,52,],[-2,-3,-4,-5,-6,-1,-7,-17,-29,-16,-13,-14,-15,-8,-12,-9,-10,52,-11,]),'PARENTESIS_ABIERTO':([7,10,],[13,17,]),'NUMERO':([7,15,16,18,41,],[14,14,14,14,14,]),'IGUAL':([8,11,25,35,],[15,18,15,18,]),'MENOR_IGUAL':([8,25,],[16,16,]),'PUNTOCOMA':([11,12,14,22,23,24,25,26,27,29,30,31,32,34,36,39,40,42,45,50,],[-16,19,-17,38,-21,-22,-23,-24,-25,-16,-13,42,-14,45,46,-27,-26,-15,-12,-28,]),'STRING':([13,37,38,],[23,23,23,]),'AMPERSON':([13,37,38,],[28,28,28,]),'MULT':([14,29,30,],[-17,-16,41,]),'COMA':([14,22,23,24,25,26,27,29,30,32,39,40,42,45,],[-17,37,-21,-22,-23,-24,-25,-16,-13,-14,-27,-26,-15,-12,]),'PARENTESIS_CERRADO':([14,17,21,22,23,24,25,26,27,29,30,32,39,40,42,45,48,49,],[-17,33,36,-18,-21,-22,-23,-24,-25,-16,-13,-14,-27,-26,-15,-12,-19,-20,]),'MASMAS':([25,],[39,]),'LLAVE_ABIERTA':([33,36,],[44,44,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'bloque':([0,34,38,],[1,43,46,]),'declaraciones':([2,4,45,],[3,12,3,]),'declaracion':([2,4,45,],[4,4,4,]),'asignacion':([2,4,15,39,45,],[5,5,25,25,5,]),'funcion':([2,4,45,],[6,6,6,]),'inclusion':([2,4,45,],[7,7,7,]),'retorno':([2,4,45,],[8,8,8,]),'valor':([9,18,20,40,42,],[16,33,35,33,48,]),'argumentos':([15,39,],[23,47,]),'argumento':([15,39,],[24,24,]),'referencia':([15,39,],[27,27,]),'incremento':([15,39,],[28,28,]),'operacion':([18,40,],[32,32,]),}
+_lr_goto_items = {'declaraciones':([0,2,44,],[1,9,51,]),'declaracion':([0,2,44,],[2,2,2,]),'asignacion':([0,2,13,37,38,44,],[3,3,26,26,26,3,]),'funcion':([0,2,44,],[4,4,4,]),'inclusion':([0,2,44,],[5,5,5,]),'retorno':([0,2,44,],[6,6,6,]),'valor':([7,15,16,18,41,],[12,30,32,34,50,]),'argumentos':([13,37,38,],[21,48,49,]),'argumento':([13,37,38,],[22,22,22,]),'referencia':([13,37,38,],[24,24,24,]),'incremento':([13,37,38,],[27,27,27,]),'operacion':([15,],[31,]),'bloque':([33,36,],[43,47,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,33 +26,34 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> bloque","S'",1,None,None,None),
-  ('bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL','bloque',3,'p_expression_bloque','prueba.py',46),
-  ('declaraciones -> declaracion declaraciones','declaraciones',2,'p_expression_declaraciones','prueba.py',51),
-  ('declaraciones -> declaracion','declaraciones',1,'p_expression_declaraciones','prueba.py',52),
-  ('declaracion -> asignacion','declaracion',1,'p_expression_declaracion','prueba.py',57),
-  ('declaracion -> funcion','declaracion',1,'p_expression_declaracion','prueba.py',58),
-  ('declaracion -> inclusion','declaracion',1,'p_expression_declaracion','prueba.py',59),
-  ('declaracion -> retorno','declaracion',1,'p_expression_declaracion','prueba.py',60),
-  ('operacion -> valor SIMBOLO_ESPECIAL valor','operacion',3,'p_expression_operacion','prueba.py',65),
-  ('valor -> IDENTIFICADOR','valor',1,'p_expression_valor','prueba.py',70),
-  ('valor -> NUMERO','valor',1,'p_expression_valor','prueba.py',71),
-  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL','asignacion',5,'p_expression_asignacion','prueba.py',76),
-  ('asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL','asignacion',3,'p_expression_asignacion','prueba.py',77),
-  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL','asignacion',4,'p_expression_asignacion','prueba.py',78),
-  ('asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor','asignacion',3,'p_expression_asignacion','prueba.py',79),
-  ('funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',84),
-  ('funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL','funcion',5,'p_expression_funcion','prueba.py',85),
-  ('funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque','funcion',5,'p_expression_funcion','prueba.py',86),
-  ('argumentos -> argumento SIMBOLO_ESPECIAL argumentos','argumentos',3,'p_expression_argumentos','prueba.py',91),
-  ('argumentos -> argumento','argumentos',1,'p_expression_argumentos','prueba.py',92),
-  ('argumento -> asignacion','argumento',1,'p_expression_argumento','prueba.py',97),
-  ('argumento -> STRING','argumento',1,'p_expression_argumento','prueba.py',98),
-  ('argumento -> referencia','argumento',1,'p_expression_argumento','prueba.py',99),
-  ('argumento -> incremento','argumento',1,'p_expression_argumento','prueba.py',100),
-  ('argumento -> IDENTIFICADOR','argumento',1,'p_expression_argumento','prueba.py',101),
-  ('referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR','referencia',2,'p_expression_referencia','prueba.py',106),
-  ('incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL','incremento',2,'p_expression_incremento','prueba.py',111),
-  ('retorno -> RESERVADO valor SIMBOLO_ESPECIAL','retorno',3,'p_expression_retorno','prueba.py',116),
-  ('inclusion -> RESERVADO RESERVADO','inclusion',2,'p_expression_inclusion','prueba.py',121),
+  ("S' -> declaraciones","S'",1,None,None,None),
+  ('declaraciones -> declaracion declaraciones','declaraciones',2,'p_declaraciones','intentionuevo.py',60),
+  ('declaraciones -> declaracion','declaraciones',1,'p_declaraciones','intentionuevo.py',61),
+  ('declaracion -> asignacion','declaracion',1,'p_declaracion','intentionuevo.py',70),
+  ('declaracion -> funcion','declaracion',1,'p_declaracion','intentionuevo.py',71),
+  ('declaracion -> inclusion','declaracion',1,'p_declaracion','intentionuevo.py',72),
+  ('declaracion -> retorno','declaracion',1,'p_declaracion','intentionuevo.py',73),
+  ('inclusion -> RESERVADO RESERVADO','inclusion',2,'p_inclusion','intentionuevo.py',79),
+  ('funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque','funcion',5,'p_funcion','intentionuevo.py',85),
+  ('funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA','funcion',5,'p_funcion','intentionuevo.py',86),
+  ('funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque','funcion',5,'p_funcion','intentionuevo.py',87),
+  ('bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA','bloque',3,'p_bloque','intentionuevo.py',94),
+  ('asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA','asignacion',5,'p_asignacion','intentionuevo.py',100),
+  ('asignacion -> IDENTIFICADOR IGUAL valor','asignacion',3,'p_asignacion','intentionuevo.py',101),
+  ('asignacion -> IDENTIFICADOR MENOR_IGUAL valor','asignacion',3,'p_asignacion','intentionuevo.py',102),
+  ('asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA','asignacion',4,'p_asignacion','intentionuevo.py',103),
+  ('valor -> IDENTIFICADOR','valor',1,'p_valor','intentionuevo.py',109),
+  ('valor -> NUMERO','valor',1,'p_valor','intentionuevo.py',110),
+  ('argumentos -> argumento','argumentos',1,'p_argumentos','intentionuevo.py',116),
+  ('argumentos -> argumento COMA argumentos','argumentos',3,'p_argumentos','intentionuevo.py',117),
+  ('argumentos -> argumento PUNTOCOMA argumentos','argumentos',3,'p_argumentos','intentionuevo.py',118),
+  ('argumento -> STRING','argumento',1,'p_argumento','intentionuevo.py',129),
+  ('argumento -> referencia','argumento',1,'p_argumento','intentionuevo.py',130),
+  ('argumento -> IDENTIFICADOR','argumento',1,'p_argumento','intentionuevo.py',131),
+  ('argumento -> asignacion','argumento',1,'p_argumento','intentionuevo.py',132),
+  ('argumento -> incremento','argumento',1,'p_argumento','intentionuevo.py',133),
+  ('referencia -> AMPERSON IDENTIFICADOR','referencia',2,'p_referencia','intentionuevo.py',139),
+  ('incremento -> IDENTIFICADOR MASMAS','incremento',2,'p_incremento','intentionuevo.py',145),
+  ('operacion -> valor MULT valor','operacion',3,'p_operacion','intentionuevo.py',151),
+  ('retorno -> RESERVADO valor PUNTOCOMA','retorno',3,'p_retorno','intentionuevo.py',157),
 ]

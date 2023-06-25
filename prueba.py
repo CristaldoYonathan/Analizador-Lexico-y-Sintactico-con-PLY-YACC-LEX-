@@ -7,6 +7,7 @@ tokens = (
     'STRING',  
     'IDENTIFICADOR',
     'SIMBOLO_ESPECIAL',
+    #'NEWLINE',
 )
 
 # Expresiones regulares para los tokens 
@@ -23,7 +24,7 @@ def t_NUMERO(t):
     return t
 
 # Ignorar caracteres de espacio en blanco
-t_ignore = '( )\t'
+t_ignore = ' \t'
 
 #t_ignore_COMMENT = r'\/\/.*'
 
@@ -44,100 +45,162 @@ lexer = lex.lex()
 ###############################################################################################
 
 # Definición de reglas de producción 
+def p_expression_declaraciones1(p):
+    ''' declaraciones : declaracion declaraciones 
+    ''' 
+    print("declaracion declaraciones")
+
+
+def p_expression_declaraciones2(p):
+    ''' declaraciones : declaracion
+    ''' 
+    print("declaracion")
+
 def p_expression_bloque(p):
     ''' bloque : SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
     '''
-    pass
+    print("SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL")
 
-def p_expression_declaraciones(p):
-    ''' declaraciones : declaracion declaraciones 
-                      | declaracion
-    ''' 
-    pass
-#    if len(p) == 3:
-#        p[0] = str(p[1]) + str(p[2])
-#    else:
-#        p[0] = str(p[1])
 
-def p_expression_declaracion(p):
+def p_expression_declaracion1(p):
     ''' declaracion : asignacion 
-                    | funcion 
-                    | inclusion 
-                    | retorno 
     '''
+    print("asignacion")
 
-#    if p[1] == 'asignacion':
-#        p[0] = str(p[1])
-#    if p[1] == 'funcion':
-#        p[0] = str(p[2])
-#    if p[1] == 'inclusion':
-#        p[0] = str(p[3])
-#    if p[1] == 'retorno':
-#        p[0] = str(p[4])
+
+def p_expression_declaracion2(p):
+    ''' declaracion : funcion 
+    '''
+    print("funcion")
+
+
+def p_expression_declaracion3(p):
+    ''' declaracion : retorno 
+    '''
+    print("retorno")
+
+
+def p_expression_declaracion4(p):
+    ''' declaracion : inclusion 
+    '''
+    print("inclusion")
 
 def p_expression_operacion(p):
     ''' operacion : valor SIMBOLO_ESPECIAL valor 
     '''
-    pass
+    print("valor SIMBOLO_ESPECIAL valor")
     
 
 def p_expression_valor(p):
     ''' valor : IDENTIFICADOR
-                | NUMERO
     ''' 
-    pass
+    print("IDENTIFICADOR")
+
+
+def p_expression_valor2(p):
+    ''' valor : NUMERO
+    ''' 
+    print("NUMERO")
 
 def p_expression_asignacion(p):
     ''' asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL 
-                    | RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-                    | IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL 
-                    | IDENTIFICADOR SIMBOLO_ESPECIAL valor 
     '''
-    pass
+    print("RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL")
 
-def p_expression_funcion(p):
+
+def p_expression_asignacion2(p):
+    ''' asignacion : RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
+    '''
+    print("RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL")
+
+
+def p_expression_asignacion3(p):##CAMBIADOOOOOOOOOOOOOOO
+    ''' asignacion : IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL 
+    '''
+    print("IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL")
+
+
+def p_expression_asignacion4(p):
+    ''' asignacion : IDENTIFICADOR SIMBOLO_ESPECIAL valor 
+    '''
+    print("IDENTIFICADOR SIMBOLO_ESPECIAL valor")
+
+
+def p_expression_funcion1(p):
     ''' funcion : RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque 
-                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL 
-                | RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
     '''
-    pass
+    print("RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque")
 
-def p_expression_argumentos(p):
+
+def p_expression_funcion2(p):
+    ''' funcion : RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL  
+    '''
+    print("RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL")
+
+
+def p_expression_funcion3(p):
+    ''' funcion : RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque  
+    '''
+    print("RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque")
+
+
+def p_expression_argumentos1(p):
     ''' argumentos : argumento SIMBOLO_ESPECIAL argumentos 
-                    | argumento
     '''
-    pass
+    print("argumento SIMBOLO_ESPECIAL argumentos")
 
-def p_expression_argumento(p):
-    ''' argumento : asignacion
-                    | STRING
-                    | referencia
-                    | incremento
-                    | IDENTIFICADOR
+
+def p_expression_argumentos2(p):
+    ''' argumentos : argumento 
     '''
-    pass
+    print("argumento")
+
+
+def p_expression_argumento1(p):
+    ''' argumento : asignacion
+    '''
+    print("asignacion")
+
+def p_expression_argumento2(p):
+    ''' argumento : STRING
+    '''
+    print("STRING")
+
+def p_expression_argumento3(p):
+    ''' argumento : referencia
+    '''
+    print("referencia")
+
+def p_expression_argumento4(p):
+    ''' argumento : incremento
+    '''
+    print("incremento")
+
+def p_expression_argumento5(p):
+    ''' argumento : IDENTIFICADOR
+    '''
+    print("IDENTIFICADOR")
+
 
 def p_expression_referencia(p):
     ''' referencia : SIMBOLO_ESPECIAL IDENTIFICADOR
     '''
-    pass
+    print("SIMBOLO_ESPECIAL IDENTIFICADOR")
 
 def p_expression_incremento(p):
     ''' incremento : IDENTIFICADOR SIMBOLO_ESPECIAL
     '''
-    pass   
+    print("IDENTIFICADOR SIMBOLO_ESPECIAL")
 
 def p_expression_retorno(p):
     ''' retorno : RESERVADO valor SIMBOLO_ESPECIAL
     '''
-    pass
+    print("RESERVADO valor SIMBOLO_ESPECIAL")
 
 def p_expression_inclusion(p):
     ''' inclusion : RESERVADO RESERVADO
     '''
-#    if p[1] == '#include' and p[2] == '<stdio.h>':
-#        p[0] = '#include <stdio.h>'
-
+    print("RESERVADO RESERVADO")
 
 # Manejo de errores de parser
 def p_error(p):
@@ -150,23 +213,13 @@ parser = yacc.yacc()
 ###############################################################################################
 
 # Cadena de entrada
-input_string = '''
+input_string =  '''
 #include <stdio.h>
-        int main ( ) {
-        ㅤㅤㅤint c;
-        ㅤㅤㅤint n;
-        ㅤㅤㅤint fact = 1;
-        ㅤㅤㅤprintf("Ingrese el numero a calcular el factorial: \n");
-        ㅤㅤㅤscanf("%d ", &n);
-        ㅤㅤㅤfor (c = 1; c <= n; c++){
-        ㅤㅤㅤㅤㅤㅤfact = fact * c;
-        ㅤㅤㅤ}
-        ㅤㅤㅤprintf("El factorial de %d es: %d\n", n, fact);
-        ㅤㅤㅤreturn 0;
+int main(){
+    int a = 5;
+    return 0;
 }
 '''
-
-#input_string = input('Ingrese una cadena de texto: ')
 
 # Ejecutar el lexer
 lexer.input(input_string)
@@ -176,7 +229,7 @@ while True:
     token = lexer.token()
     if not token:
         break 
-    print(str(token.type) + "  →  " + str(token.value) + " " + str(token.lineno) + " " + str(token.lexpos))
+    ##print(str(token.type) + "  →  " + str(token.value) + " " + str(token.lineno) + " " + str(token.lexpos))
 
 # Ejecutar el parser
 result = parser.parse(input_string) 

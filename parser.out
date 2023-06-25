@@ -2,635 +2,716 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> bloque
-Rule 1     bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
-Rule 2     declaraciones -> declaracion declaraciones
-Rule 3     declaraciones -> declaracion
-Rule 4     declaracion -> asignacion
-Rule 5     declaracion -> funcion
-Rule 6     declaracion -> inclusion
-Rule 7     declaracion -> retorno
-Rule 8     operacion -> valor SIMBOLO_ESPECIAL valor
-Rule 9     valor -> IDENTIFICADOR
-Rule 10    valor -> NUMERO
-Rule 11    asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-Rule 12    asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-Rule 13    asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-Rule 14    asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor
-Rule 15    funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
-Rule 16    funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-Rule 17    funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
-Rule 18    argumentos -> argumento SIMBOLO_ESPECIAL argumentos
-Rule 19    argumentos -> argumento
-Rule 20    argumento -> asignacion
+Rule 0     S' -> declaraciones
+Rule 1     declaraciones -> declaracion declaraciones
+Rule 2     declaraciones -> declaracion
+Rule 3     declaracion -> asignacion
+Rule 4     declaracion -> funcion
+Rule 5     declaracion -> inclusion
+Rule 6     declaracion -> retorno
+Rule 7     inclusion -> RESERVADO RESERVADO
+Rule 8     funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque
+Rule 9     funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA
+Rule 10    funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque
+Rule 11    bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA
+Rule 12    asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+Rule 13    asignacion -> IDENTIFICADOR IGUAL valor
+Rule 14    asignacion -> IDENTIFICADOR MENOR_IGUAL valor
+Rule 15    asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA
+Rule 16    valor -> IDENTIFICADOR
+Rule 17    valor -> NUMERO
+Rule 18    argumentos -> argumento
+Rule 19    argumentos -> argumento COMA argumentos
+Rule 20    argumentos -> argumento PUNTOCOMA argumentos
 Rule 21    argumento -> STRING
 Rule 22    argumento -> referencia
-Rule 23    argumento -> incremento
-Rule 24    argumento -> IDENTIFICADOR
-Rule 25    referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR
-Rule 26    incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL
-Rule 27    retorno -> RESERVADO valor SIMBOLO_ESPECIAL
-Rule 28    inclusion -> RESERVADO RESERVADO
+Rule 23    argumento -> IDENTIFICADOR
+Rule 24    argumento -> asignacion
+Rule 25    argumento -> incremento
+Rule 26    referencia -> AMPERSON IDENTIFICADOR
+Rule 27    incremento -> IDENTIFICADOR MASMAS
+Rule 28    operacion -> valor MULT valor
+Rule 29    retorno -> RESERVADO valor PUNTOCOMA
 
 Terminals, with rules where they appear
 
-IDENTIFICADOR        : 9 11 12 13 14 24 25 26
-NUMERO               : 10
-RESERVADO            : 11 12 15 15 16 17 27 28 28
-SIMBOLO_ESPECIAL     : 1 1 8 11 11 12 13 13 14 15 15 16 16 16 17 17 18 25 26 27
+AMPERSON             : 26
+COMA                 : 19
+IDENTIFICADOR        : 12 13 14 15 16 23 26 27
+IGUAL                : 12 13 15
+LLAVE_ABIERTA        : 11
+LLAVE_CERRADA        : 11
+MASMAS               : 27
+MENOR_IGUAL          : 14
+MULT                 : 28
+NUMERO               : 17
+PARENTESIS_ABIERTO   : 8 9 10
+PARENTESIS_CERRADO   : 8 9 10
+PUNTOCOMA            : 9 12 15 20 29
+RESERVADO            : 7 7 8 8 9 10 12 29
 STRING               : 21
 error                : 
 
 Nonterminals, with rules where they appear
 
-argumento            : 18 19
-argumentos           : 16 17 18
-asignacion           : 4 20
-bloque               : 15 17 0
-declaracion          : 2 3
-declaraciones        : 1 2
-funcion              : 5
-inclusion            : 6
-incremento           : 23
-operacion            : 13
+argumento            : 18 19 20
+argumentos           : 9 10 19 20
+asignacion           : 3 24
+bloque               : 8 10
+declaracion          : 1 2
+declaraciones        : 1 11 0
+funcion              : 4
+inclusion            : 5
+incremento           : 25
+operacion            : 15
 referencia           : 22
-retorno              : 7
-valor                : 8 8 11 14 27
+retorno              : 6
+valor                : 12 13 14 28 28 29
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . bloque
-    (1) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
+    (0) S' -> . declaraciones
+    (1) declaraciones -> . declaracion declaraciones
+    (2) declaraciones -> . declaracion
+    (3) declaracion -> . asignacion
+    (4) declaracion -> . funcion
+    (5) declaracion -> . inclusion
+    (6) declaracion -> . retorno
+    (12) asignacion -> . RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (13) asignacion -> . IDENTIFICADOR IGUAL valor
+    (14) asignacion -> . IDENTIFICADOR MENOR_IGUAL valor
+    (15) asignacion -> . IDENTIFICADOR IGUAL operacion PUNTOCOMA
+    (8) funcion -> . RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque
+    (9) funcion -> . RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA
+    (10) funcion -> . RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque
+    (7) inclusion -> . RESERVADO RESERVADO
+    (29) retorno -> . RESERVADO valor PUNTOCOMA
 
-    SIMBOLO_ESPECIAL shift and go to state 2
+    RESERVADO       shift and go to state 7
+    IDENTIFICADOR   shift and go to state 8
 
-    bloque                         shift and go to state 1
+    declaraciones                  shift and go to state 1
+    declaracion                    shift and go to state 2
+    asignacion                     shift and go to state 3
+    funcion                        shift and go to state 4
+    inclusion                      shift and go to state 5
+    retorno                        shift and go to state 6
 
 state 1
 
-    (0) S' -> bloque .
+    (0) S' -> declaraciones .
 
 
 
 state 2
 
-    (1) bloque -> SIMBOLO_ESPECIAL . declaraciones SIMBOLO_ESPECIAL
-    (2) declaraciones -> . declaracion declaraciones
-    (3) declaraciones -> . declaracion
-    (4) declaracion -> . asignacion
-    (5) declaracion -> . funcion
-    (6) declaracion -> . inclusion
-    (7) declaracion -> . retorno
-    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
-    (15) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
-    (16) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-    (17) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
-    (28) inclusion -> . RESERVADO RESERVADO
-    (27) retorno -> . RESERVADO valor SIMBOLO_ESPECIAL
+    (1) declaraciones -> declaracion . declaraciones
+    (2) declaraciones -> declaracion .
+    (1) declaraciones -> . declaracion declaraciones
+    (2) declaraciones -> . declaracion
+    (3) declaracion -> . asignacion
+    (4) declaracion -> . funcion
+    (5) declaracion -> . inclusion
+    (6) declaracion -> . retorno
+    (12) asignacion -> . RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (13) asignacion -> . IDENTIFICADOR IGUAL valor
+    (14) asignacion -> . IDENTIFICADOR MENOR_IGUAL valor
+    (15) asignacion -> . IDENTIFICADOR IGUAL operacion PUNTOCOMA
+    (8) funcion -> . RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque
+    (9) funcion -> . RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA
+    (10) funcion -> . RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque
+    (7) inclusion -> . RESERVADO RESERVADO
+    (29) retorno -> . RESERVADO valor PUNTOCOMA
 
-    RESERVADO       shift and go to state 9
-    IDENTIFICADOR   shift and go to state 10
+    $end            reduce using rule 2 (declaraciones -> declaracion .)
+    LLAVE_CERRADA   reduce using rule 2 (declaraciones -> declaracion .)
+    RESERVADO       shift and go to state 7
+    IDENTIFICADOR   shift and go to state 8
 
-    declaraciones                  shift and go to state 3
-    declaracion                    shift and go to state 4
-    asignacion                     shift and go to state 5
-    funcion                        shift and go to state 6
-    inclusion                      shift and go to state 7
-    retorno                        shift and go to state 8
+    declaracion                    shift and go to state 2
+    declaraciones                  shift and go to state 9
+    asignacion                     shift and go to state 3
+    funcion                        shift and go to state 4
+    inclusion                      shift and go to state 5
+    retorno                        shift and go to state 6
 
 state 3
 
-    (1) bloque -> SIMBOLO_ESPECIAL declaraciones . SIMBOLO_ESPECIAL
+    (3) declaracion -> asignacion .
 
-    SIMBOLO_ESPECIAL shift and go to state 11
+    RESERVADO       reduce using rule 3 (declaracion -> asignacion .)
+    IDENTIFICADOR   reduce using rule 3 (declaracion -> asignacion .)
+    $end            reduce using rule 3 (declaracion -> asignacion .)
+    LLAVE_CERRADA   reduce using rule 3 (declaracion -> asignacion .)
 
 
 state 4
 
-    (2) declaraciones -> declaracion . declaraciones
-    (3) declaraciones -> declaracion .
-    (2) declaraciones -> . declaracion declaraciones
-    (3) declaraciones -> . declaracion
-    (4) declaracion -> . asignacion
-    (5) declaracion -> . funcion
-    (6) declaracion -> . inclusion
-    (7) declaracion -> . retorno
-    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
-    (15) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
-    (16) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-    (17) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
-    (28) inclusion -> . RESERVADO RESERVADO
-    (27) retorno -> . RESERVADO valor SIMBOLO_ESPECIAL
+    (4) declaracion -> funcion .
 
-    SIMBOLO_ESPECIAL reduce using rule 3 (declaraciones -> declaracion .)
-    RESERVADO       shift and go to state 9
-    IDENTIFICADOR   shift and go to state 10
+    RESERVADO       reduce using rule 4 (declaracion -> funcion .)
+    IDENTIFICADOR   reduce using rule 4 (declaracion -> funcion .)
+    $end            reduce using rule 4 (declaracion -> funcion .)
+    LLAVE_CERRADA   reduce using rule 4 (declaracion -> funcion .)
 
-    declaracion                    shift and go to state 4
-    declaraciones                  shift and go to state 12
-    asignacion                     shift and go to state 5
-    funcion                        shift and go to state 6
-    inclusion                      shift and go to state 7
-    retorno                        shift and go to state 8
 
 state 5
 
-    (4) declaracion -> asignacion .
+    (5) declaracion -> inclusion .
 
-    RESERVADO       reduce using rule 4 (declaracion -> asignacion .)
-    IDENTIFICADOR   reduce using rule 4 (declaracion -> asignacion .)
-    SIMBOLO_ESPECIAL reduce using rule 4 (declaracion -> asignacion .)
+    RESERVADO       reduce using rule 5 (declaracion -> inclusion .)
+    IDENTIFICADOR   reduce using rule 5 (declaracion -> inclusion .)
+    $end            reduce using rule 5 (declaracion -> inclusion .)
+    LLAVE_CERRADA   reduce using rule 5 (declaracion -> inclusion .)
 
 
 state 6
 
-    (5) declaracion -> funcion .
+    (6) declaracion -> retorno .
 
-    RESERVADO       reduce using rule 5 (declaracion -> funcion .)
-    IDENTIFICADOR   reduce using rule 5 (declaracion -> funcion .)
-    SIMBOLO_ESPECIAL reduce using rule 5 (declaracion -> funcion .)
+    RESERVADO       reduce using rule 6 (declaracion -> retorno .)
+    IDENTIFICADOR   reduce using rule 6 (declaracion -> retorno .)
+    $end            reduce using rule 6 (declaracion -> retorno .)
+    LLAVE_CERRADA   reduce using rule 6 (declaracion -> retorno .)
 
 
 state 7
 
-    (6) declaracion -> inclusion .
+    (12) asignacion -> RESERVADO . IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (8) funcion -> RESERVADO . RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque
+    (9) funcion -> RESERVADO . PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA
+    (10) funcion -> RESERVADO . PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque
+    (7) inclusion -> RESERVADO . RESERVADO
+    (29) retorno -> RESERVADO . valor PUNTOCOMA
+    (16) valor -> . IDENTIFICADOR
+    (17) valor -> . NUMERO
 
-    RESERVADO       reduce using rule 6 (declaracion -> inclusion .)
-    IDENTIFICADOR   reduce using rule 6 (declaracion -> inclusion .)
-    SIMBOLO_ESPECIAL reduce using rule 6 (declaracion -> inclusion .)
+    IDENTIFICADOR   shift and go to state 11
+    RESERVADO       shift and go to state 10
+    PARENTESIS_ABIERTO shift and go to state 13
+    NUMERO          shift and go to state 14
 
+    valor                          shift and go to state 12
 
 state 8
 
-    (7) declaracion -> retorno .
+    (13) asignacion -> IDENTIFICADOR . IGUAL valor
+    (14) asignacion -> IDENTIFICADOR . MENOR_IGUAL valor
+    (15) asignacion -> IDENTIFICADOR . IGUAL operacion PUNTOCOMA
 
-    RESERVADO       reduce using rule 7 (declaracion -> retorno .)
-    IDENTIFICADOR   reduce using rule 7 (declaracion -> retorno .)
-    SIMBOLO_ESPECIAL reduce using rule 7 (declaracion -> retorno .)
+    IGUAL           shift and go to state 15
+    MENOR_IGUAL     shift and go to state 16
 
 
 state 9
 
-    (11) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL
-    (15) funcion -> RESERVADO . RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
-    (16) funcion -> RESERVADO . SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-    (17) funcion -> RESERVADO . SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
-    (28) inclusion -> RESERVADO . RESERVADO
-    (27) retorno -> RESERVADO . valor SIMBOLO_ESPECIAL
-    (9) valor -> . IDENTIFICADOR
-    (10) valor -> . NUMERO
+    (1) declaraciones -> declaracion declaraciones .
 
-    IDENTIFICADOR   shift and go to state 14
-    RESERVADO       shift and go to state 13
-    SIMBOLO_ESPECIAL shift and go to state 15
-    NUMERO          shift and go to state 17
+    $end            reduce using rule 1 (declaraciones -> declaracion declaraciones .)
+    LLAVE_CERRADA   reduce using rule 1 (declaraciones -> declaracion declaraciones .)
 
-    valor                          shift and go to state 16
 
 state 10
 
-    (13) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL valor
+    (8) funcion -> RESERVADO RESERVADO . PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque
+    (7) inclusion -> RESERVADO RESERVADO .
 
-    SIMBOLO_ESPECIAL shift and go to state 18
+    PARENTESIS_ABIERTO shift and go to state 17
+    RESERVADO       reduce using rule 7 (inclusion -> RESERVADO RESERVADO .)
+    IDENTIFICADOR   reduce using rule 7 (inclusion -> RESERVADO RESERVADO .)
+    $end            reduce using rule 7 (inclusion -> RESERVADO RESERVADO .)
+    LLAVE_CERRADA   reduce using rule 7 (inclusion -> RESERVADO RESERVADO .)
 
 
 state 11
 
-    (1) bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .
+    (12) asignacion -> RESERVADO IDENTIFICADOR . IGUAL valor PUNTOCOMA
+    (16) valor -> IDENTIFICADOR .
 
-    $end            reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
-    RESERVADO       reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 1 (bloque -> SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL .)
+    IGUAL           shift and go to state 18
+    PUNTOCOMA       reduce using rule 16 (valor -> IDENTIFICADOR .)
 
 
 state 12
 
-    (2) declaraciones -> declaracion declaraciones .
+    (29) retorno -> RESERVADO valor . PUNTOCOMA
 
-    SIMBOLO_ESPECIAL reduce using rule 2 (declaraciones -> declaracion declaraciones .)
+    PUNTOCOMA       shift and go to state 19
 
 
 state 13
 
-    (15) funcion -> RESERVADO RESERVADO . SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
-    (28) inclusion -> RESERVADO RESERVADO .
+    (9) funcion -> RESERVADO PARENTESIS_ABIERTO . argumentos PARENTESIS_CERRADO PUNTOCOMA
+    (10) funcion -> RESERVADO PARENTESIS_ABIERTO . argumentos PARENTESIS_CERRADO bloque
+    (18) argumentos -> . argumento
+    (19) argumentos -> . argumento COMA argumentos
+    (20) argumentos -> . argumento PUNTOCOMA argumentos
+    (21) argumento -> . STRING
+    (22) argumento -> . referencia
+    (23) argumento -> . IDENTIFICADOR
+    (24) argumento -> . asignacion
+    (25) argumento -> . incremento
+    (26) referencia -> . AMPERSON IDENTIFICADOR
+    (12) asignacion -> . RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (13) asignacion -> . IDENTIFICADOR IGUAL valor
+    (14) asignacion -> . IDENTIFICADOR MENOR_IGUAL valor
+    (15) asignacion -> . IDENTIFICADOR IGUAL operacion PUNTOCOMA
+    (27) incremento -> . IDENTIFICADOR MASMAS
 
-  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
-    SIMBOLO_ESPECIAL shift and go to state 19
-    RESERVADO       reduce using rule 28 (inclusion -> RESERVADO RESERVADO .)
-    IDENTIFICADOR   reduce using rule 28 (inclusion -> RESERVADO RESERVADO .)
+    STRING          shift and go to state 23
+    IDENTIFICADOR   shift and go to state 25
+    AMPERSON        shift and go to state 28
+    RESERVADO       shift and go to state 20
 
-  ! SIMBOLO_ESPECIAL [ reduce using rule 28 (inclusion -> RESERVADO RESERVADO .) ]
-
+    argumentos                     shift and go to state 21
+    argumento                      shift and go to state 22
+    referencia                     shift and go to state 24
+    asignacion                     shift and go to state 26
+    incremento                     shift and go to state 27
 
 state 14
 
-    (11) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL
-    (9) valor -> IDENTIFICADOR .
+    (17) valor -> NUMERO .
 
-  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
-    SIMBOLO_ESPECIAL shift and go to state 20
-
-  ! SIMBOLO_ESPECIAL [ reduce using rule 9 (valor -> IDENTIFICADOR .) ]
+    PUNTOCOMA       reduce using rule 17 (valor -> NUMERO .)
+    MULT            reduce using rule 17 (valor -> NUMERO .)
+    RESERVADO       reduce using rule 17 (valor -> NUMERO .)
+    IDENTIFICADOR   reduce using rule 17 (valor -> NUMERO .)
+    $end            reduce using rule 17 (valor -> NUMERO .)
+    LLAVE_CERRADA   reduce using rule 17 (valor -> NUMERO .)
+    COMA            reduce using rule 17 (valor -> NUMERO .)
+    PARENTESIS_CERRADO reduce using rule 17 (valor -> NUMERO .)
 
 
 state 15
 
-    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL . argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL . argumentos SIMBOLO_ESPECIAL bloque
-    (18) argumentos -> . argumento SIMBOLO_ESPECIAL argumentos
-    (19) argumentos -> . argumento
-    (20) argumento -> . asignacion
-    (21) argumento -> . STRING
-    (22) argumento -> . referencia
-    (23) argumento -> . incremento
-    (24) argumento -> . IDENTIFICADOR
-    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
-    (25) referencia -> . SIMBOLO_ESPECIAL IDENTIFICADOR
-    (26) incremento -> . IDENTIFICADOR SIMBOLO_ESPECIAL
+    (13) asignacion -> IDENTIFICADOR IGUAL . valor
+    (15) asignacion -> IDENTIFICADOR IGUAL . operacion PUNTOCOMA
+    (16) valor -> . IDENTIFICADOR
+    (17) valor -> . NUMERO
+    (28) operacion -> . valor MULT valor
 
-    STRING          shift and go to state 26
     IDENTIFICADOR   shift and go to state 29
-    RESERVADO       shift and go to state 21
-    SIMBOLO_ESPECIAL shift and go to state 22
+    NUMERO          shift and go to state 14
 
-    argumentos                     shift and go to state 23
-    argumento                      shift and go to state 24
-    asignacion                     shift and go to state 25
-    referencia                     shift and go to state 27
-    incremento                     shift and go to state 28
+    valor                          shift and go to state 30
+    operacion                      shift and go to state 31
 
 state 16
 
-    (27) retorno -> RESERVADO valor . SIMBOLO_ESPECIAL
+    (14) asignacion -> IDENTIFICADOR MENOR_IGUAL . valor
+    (16) valor -> . IDENTIFICADOR
+    (17) valor -> . NUMERO
 
-    SIMBOLO_ESPECIAL shift and go to state 30
+    IDENTIFICADOR   shift and go to state 29
+    NUMERO          shift and go to state 14
 
+    valor                          shift and go to state 32
 
 state 17
 
-    (10) valor -> NUMERO .
+    (8) funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO . PARENTESIS_CERRADO bloque
 
-    SIMBOLO_ESPECIAL reduce using rule 10 (valor -> NUMERO .)
-    RESERVADO       reduce using rule 10 (valor -> NUMERO .)
-    IDENTIFICADOR   reduce using rule 10 (valor -> NUMERO .)
+    PARENTESIS_CERRADO shift and go to state 33
 
 
 state 18
 
-    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . valor
-    (8) operacion -> . valor SIMBOLO_ESPECIAL valor
-    (9) valor -> . IDENTIFICADOR
-    (10) valor -> . NUMERO
+    (12) asignacion -> RESERVADO IDENTIFICADOR IGUAL . valor PUNTOCOMA
+    (16) valor -> . IDENTIFICADOR
+    (17) valor -> . NUMERO
 
-    IDENTIFICADOR   shift and go to state 31
-    NUMERO          shift and go to state 17
+    IDENTIFICADOR   shift and go to state 29
+    NUMERO          shift and go to state 14
 
-    operacion                      shift and go to state 32
-    valor                          shift and go to state 33
+    valor                          shift and go to state 34
 
 state 19
 
-    (15) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL . SIMBOLO_ESPECIAL bloque
+    (29) retorno -> RESERVADO valor PUNTOCOMA .
 
-    SIMBOLO_ESPECIAL shift and go to state 34
+    RESERVADO       reduce using rule 29 (retorno -> RESERVADO valor PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 29 (retorno -> RESERVADO valor PUNTOCOMA .)
+    $end            reduce using rule 29 (retorno -> RESERVADO valor PUNTOCOMA .)
+    LLAVE_CERRADA   reduce using rule 29 (retorno -> RESERVADO valor PUNTOCOMA .)
 
 
 state 20
 
-    (11) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL . valor SIMBOLO_ESPECIAL
-    (12) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .
-    (9) valor -> . IDENTIFICADOR
-    (10) valor -> . NUMERO
+    (12) asignacion -> RESERVADO . IDENTIFICADOR IGUAL valor PUNTOCOMA
 
-  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
-    RESERVADO       reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   shift and go to state 31
-    NUMERO          shift and go to state 17
+    IDENTIFICADOR   shift and go to state 35
 
-  ! IDENTIFICADOR   [ reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL .) ]
-
-    valor                          shift and go to state 35
 
 state 21
 
-    (11) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> RESERVADO . IDENTIFICADOR SIMBOLO_ESPECIAL
+    (9) funcion -> RESERVADO PARENTESIS_ABIERTO argumentos . PARENTESIS_CERRADO PUNTOCOMA
+    (10) funcion -> RESERVADO PARENTESIS_ABIERTO argumentos . PARENTESIS_CERRADO bloque
 
-    IDENTIFICADOR   shift and go to state 36
+    PARENTESIS_CERRADO shift and go to state 36
 
 
 state 22
 
-    (25) referencia -> SIMBOLO_ESPECIAL . IDENTIFICADOR
+    (18) argumentos -> argumento .
+    (19) argumentos -> argumento . COMA argumentos
+    (20) argumentos -> argumento . PUNTOCOMA argumentos
 
-    IDENTIFICADOR   shift and go to state 37
+    PARENTESIS_CERRADO reduce using rule 18 (argumentos -> argumento .)
+    COMA            shift and go to state 37
+    PUNTOCOMA       shift and go to state 38
 
 
 state 23
 
-    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos . SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos . SIMBOLO_ESPECIAL bloque
+    (21) argumento -> STRING .
 
-    SIMBOLO_ESPECIAL shift and go to state 38
+    COMA            reduce using rule 21 (argumento -> STRING .)
+    PUNTOCOMA       reduce using rule 21 (argumento -> STRING .)
+    PARENTESIS_CERRADO reduce using rule 21 (argumento -> STRING .)
 
 
 state 24
 
-    (18) argumentos -> argumento . SIMBOLO_ESPECIAL argumentos
-    (19) argumentos -> argumento .
+    (22) argumento -> referencia .
 
-  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
-    SIMBOLO_ESPECIAL shift and go to state 39
-
-  ! SIMBOLO_ESPECIAL [ reduce using rule 19 (argumentos -> argumento .) ]
+    COMA            reduce using rule 22 (argumento -> referencia .)
+    PUNTOCOMA       reduce using rule 22 (argumento -> referencia .)
+    PARENTESIS_CERRADO reduce using rule 22 (argumento -> referencia .)
 
 
 state 25
 
-    (20) argumento -> asignacion .
+    (23) argumento -> IDENTIFICADOR .
+    (13) asignacion -> IDENTIFICADOR . IGUAL valor
+    (14) asignacion -> IDENTIFICADOR . MENOR_IGUAL valor
+    (15) asignacion -> IDENTIFICADOR . IGUAL operacion PUNTOCOMA
+    (27) incremento -> IDENTIFICADOR . MASMAS
 
-    SIMBOLO_ESPECIAL reduce using rule 20 (argumento -> asignacion .)
+    COMA            reduce using rule 23 (argumento -> IDENTIFICADOR .)
+    PUNTOCOMA       reduce using rule 23 (argumento -> IDENTIFICADOR .)
+    PARENTESIS_CERRADO reduce using rule 23 (argumento -> IDENTIFICADOR .)
+    IGUAL           shift and go to state 15
+    MENOR_IGUAL     shift and go to state 16
+    MASMAS          shift and go to state 39
 
 
 state 26
 
-    (21) argumento -> STRING .
+    (24) argumento -> asignacion .
 
-    SIMBOLO_ESPECIAL reduce using rule 21 (argumento -> STRING .)
+    COMA            reduce using rule 24 (argumento -> asignacion .)
+    PUNTOCOMA       reduce using rule 24 (argumento -> asignacion .)
+    PARENTESIS_CERRADO reduce using rule 24 (argumento -> asignacion .)
 
 
 state 27
 
-    (22) argumento -> referencia .
+    (25) argumento -> incremento .
 
-    SIMBOLO_ESPECIAL reduce using rule 22 (argumento -> referencia .)
+    COMA            reduce using rule 25 (argumento -> incremento .)
+    PUNTOCOMA       reduce using rule 25 (argumento -> incremento .)
+    PARENTESIS_CERRADO reduce using rule 25 (argumento -> incremento .)
 
 
 state 28
 
-    (23) argumento -> incremento .
+    (26) referencia -> AMPERSON . IDENTIFICADOR
 
-    SIMBOLO_ESPECIAL reduce using rule 23 (argumento -> incremento .)
+    IDENTIFICADOR   shift and go to state 40
 
 
 state 29
 
-    (24) argumento -> IDENTIFICADOR .
-    (13) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> IDENTIFICADOR . SIMBOLO_ESPECIAL valor
-    (26) incremento -> IDENTIFICADOR . SIMBOLO_ESPECIAL
+    (16) valor -> IDENTIFICADOR .
 
-  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
-    SIMBOLO_ESPECIAL shift and go to state 40
-
-  ! SIMBOLO_ESPECIAL [ reduce using rule 24 (argumento -> IDENTIFICADOR .) ]
+    MULT            reduce using rule 16 (valor -> IDENTIFICADOR .)
+    RESERVADO       reduce using rule 16 (valor -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 16 (valor -> IDENTIFICADOR .)
+    $end            reduce using rule 16 (valor -> IDENTIFICADOR .)
+    LLAVE_CERRADA   reduce using rule 16 (valor -> IDENTIFICADOR .)
+    COMA            reduce using rule 16 (valor -> IDENTIFICADOR .)
+    PUNTOCOMA       reduce using rule 16 (valor -> IDENTIFICADOR .)
+    PARENTESIS_CERRADO reduce using rule 16 (valor -> IDENTIFICADOR .)
 
 
 state 30
 
-    (27) retorno -> RESERVADO valor SIMBOLO_ESPECIAL .
+    (13) asignacion -> IDENTIFICADOR IGUAL valor .
+    (28) operacion -> valor . MULT valor
 
-    RESERVADO       reduce using rule 27 (retorno -> RESERVADO valor SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   reduce using rule 27 (retorno -> RESERVADO valor SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 27 (retorno -> RESERVADO valor SIMBOLO_ESPECIAL .)
+    RESERVADO       reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    IDENTIFICADOR   reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    $end            reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    LLAVE_CERRADA   reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    COMA            reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    PUNTOCOMA       reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    PARENTESIS_CERRADO reduce using rule 13 (asignacion -> IDENTIFICADOR IGUAL valor .)
+    MULT            shift and go to state 41
 
 
 state 31
 
-    (9) valor -> IDENTIFICADOR .
+    (15) asignacion -> IDENTIFICADOR IGUAL operacion . PUNTOCOMA
 
-    SIMBOLO_ESPECIAL reduce using rule 9 (valor -> IDENTIFICADOR .)
-    RESERVADO       reduce using rule 9 (valor -> IDENTIFICADOR .)
-    IDENTIFICADOR   reduce using rule 9 (valor -> IDENTIFICADOR .)
+    PUNTOCOMA       shift and go to state 42
 
 
 state 32
 
-    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion . SIMBOLO_ESPECIAL
+    (14) asignacion -> IDENTIFICADOR MENOR_IGUAL valor .
 
-    SIMBOLO_ESPECIAL shift and go to state 41
+    RESERVADO       reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
+    IDENTIFICADOR   reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
+    $end            reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
+    LLAVE_CERRADA   reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
+    COMA            reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
+    PUNTOCOMA       reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
+    PARENTESIS_CERRADO reduce using rule 14 (asignacion -> IDENTIFICADOR MENOR_IGUAL valor .)
 
 
 state 33
 
-    (14) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .
-    (8) operacion -> valor . SIMBOLO_ESPECIAL valor
+    (8) funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO . bloque
+    (11) bloque -> . LLAVE_ABIERTA declaraciones LLAVE_CERRADA
 
-  ! shift/reduce conflict for SIMBOLO_ESPECIAL resolved as shift
-    RESERVADO       reduce using rule 14 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .)
-    IDENTIFICADOR   reduce using rule 14 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .)
-    SIMBOLO_ESPECIAL shift and go to state 42
-
-  ! SIMBOLO_ESPECIAL [ reduce using rule 14 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL valor .) ]
-
-
-state 34
-
-    (15) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL . bloque
-    (1) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
-
-    SIMBOLO_ESPECIAL shift and go to state 2
+    LLAVE_ABIERTA   shift and go to state 44
 
     bloque                         shift and go to state 43
 
+state 34
+
+    (12) asignacion -> RESERVADO IDENTIFICADOR IGUAL valor . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 45
+
+
 state 35
 
-    (11) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor . SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO IDENTIFICADOR . IGUAL valor PUNTOCOMA
 
-    SIMBOLO_ESPECIAL shift and go to state 44
+    IGUAL           shift and go to state 18
 
 
 state 36
 
-    (11) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> RESERVADO IDENTIFICADOR . SIMBOLO_ESPECIAL
+    (9) funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO . PUNTOCOMA
+    (10) funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO . bloque
+    (11) bloque -> . LLAVE_ABIERTA declaraciones LLAVE_CERRADA
 
-    SIMBOLO_ESPECIAL shift and go to state 20
+    PUNTOCOMA       shift and go to state 46
+    LLAVE_ABIERTA   shift and go to state 44
 
+    bloque                         shift and go to state 47
 
 state 37
 
-    (25) referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR .
+    (19) argumentos -> argumento COMA . argumentos
+    (18) argumentos -> . argumento
+    (19) argumentos -> . argumento COMA argumentos
+    (20) argumentos -> . argumento PUNTOCOMA argumentos
+    (21) argumento -> . STRING
+    (22) argumento -> . referencia
+    (23) argumento -> . IDENTIFICADOR
+    (24) argumento -> . asignacion
+    (25) argumento -> . incremento
+    (26) referencia -> . AMPERSON IDENTIFICADOR
+    (12) asignacion -> . RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (13) asignacion -> . IDENTIFICADOR IGUAL valor
+    (14) asignacion -> . IDENTIFICADOR MENOR_IGUAL valor
+    (15) asignacion -> . IDENTIFICADOR IGUAL operacion PUNTOCOMA
+    (27) incremento -> . IDENTIFICADOR MASMAS
 
-    SIMBOLO_ESPECIAL reduce using rule 25 (referencia -> SIMBOLO_ESPECIAL IDENTIFICADOR .)
+    STRING          shift and go to state 23
+    IDENTIFICADOR   shift and go to state 25
+    AMPERSON        shift and go to state 28
+    RESERVADO       shift and go to state 20
 
+    argumento                      shift and go to state 22
+    argumentos                     shift and go to state 48
+    referencia                     shift and go to state 24
+    asignacion                     shift and go to state 26
+    incremento                     shift and go to state 27
 
 state 38
 
-    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL . SIMBOLO_ESPECIAL
-    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL . bloque
-    (1) bloque -> . SIMBOLO_ESPECIAL declaraciones SIMBOLO_ESPECIAL
+    (20) argumentos -> argumento PUNTOCOMA . argumentos
+    (18) argumentos -> . argumento
+    (19) argumentos -> . argumento COMA argumentos
+    (20) argumentos -> . argumento PUNTOCOMA argumentos
+    (21) argumento -> . STRING
+    (22) argumento -> . referencia
+    (23) argumento -> . IDENTIFICADOR
+    (24) argumento -> . asignacion
+    (25) argumento -> . incremento
+    (26) referencia -> . AMPERSON IDENTIFICADOR
+    (12) asignacion -> . RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (13) asignacion -> . IDENTIFICADOR IGUAL valor
+    (14) asignacion -> . IDENTIFICADOR MENOR_IGUAL valor
+    (15) asignacion -> . IDENTIFICADOR IGUAL operacion PUNTOCOMA
+    (27) incremento -> . IDENTIFICADOR MASMAS
 
-    SIMBOLO_ESPECIAL shift and go to state 45
+    STRING          shift and go to state 23
+    IDENTIFICADOR   shift and go to state 25
+    AMPERSON        shift and go to state 28
+    RESERVADO       shift and go to state 20
 
-    bloque                         shift and go to state 46
+    argumento                      shift and go to state 22
+    argumentos                     shift and go to state 49
+    referencia                     shift and go to state 24
+    asignacion                     shift and go to state 26
+    incremento                     shift and go to state 27
 
 state 39
 
-    (18) argumentos -> argumento SIMBOLO_ESPECIAL . argumentos
-    (18) argumentos -> . argumento SIMBOLO_ESPECIAL argumentos
-    (19) argumentos -> . argumento
-    (20) argumento -> . asignacion
-    (21) argumento -> . STRING
-    (22) argumento -> . referencia
-    (23) argumento -> . incremento
-    (24) argumento -> . IDENTIFICADOR
-    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
-    (25) referencia -> . SIMBOLO_ESPECIAL IDENTIFICADOR
-    (26) incremento -> . IDENTIFICADOR SIMBOLO_ESPECIAL
+    (27) incremento -> IDENTIFICADOR MASMAS .
 
-    STRING          shift and go to state 26
-    IDENTIFICADOR   shift and go to state 29
-    RESERVADO       shift and go to state 21
-    SIMBOLO_ESPECIAL shift and go to state 22
+    COMA            reduce using rule 27 (incremento -> IDENTIFICADOR MASMAS .)
+    PUNTOCOMA       reduce using rule 27 (incremento -> IDENTIFICADOR MASMAS .)
+    PARENTESIS_CERRADO reduce using rule 27 (incremento -> IDENTIFICADOR MASMAS .)
 
-    argumento                      shift and go to state 24
-    argumentos                     shift and go to state 47
-    asignacion                     shift and go to state 25
-    referencia                     shift and go to state 27
-    incremento                     shift and go to state 28
 
 state 40
 
-    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL . valor
-    (26) incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL .
-    (8) operacion -> . valor SIMBOLO_ESPECIAL valor
-    (9) valor -> . IDENTIFICADOR
-    (10) valor -> . NUMERO
+    (26) referencia -> AMPERSON IDENTIFICADOR .
 
-    SIMBOLO_ESPECIAL reduce using rule 26 (incremento -> IDENTIFICADOR SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   shift and go to state 31
-    NUMERO          shift and go to state 17
+    COMA            reduce using rule 26 (referencia -> AMPERSON IDENTIFICADOR .)
+    PUNTOCOMA       reduce using rule 26 (referencia -> AMPERSON IDENTIFICADOR .)
+    PARENTESIS_CERRADO reduce using rule 26 (referencia -> AMPERSON IDENTIFICADOR .)
 
-    operacion                      shift and go to state 32
-    valor                          shift and go to state 33
 
 state 41
 
-    (13) asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .
+    (28) operacion -> valor MULT . valor
+    (16) valor -> . IDENTIFICADOR
+    (17) valor -> . NUMERO
 
-    RESERVADO       reduce using rule 13 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   reduce using rule 13 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 13 (asignacion -> IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL .)
+    IDENTIFICADOR   shift and go to state 29
+    NUMERO          shift and go to state 14
 
+    valor                          shift and go to state 50
 
 state 42
 
-    (8) operacion -> valor SIMBOLO_ESPECIAL . valor
-    (9) valor -> . IDENTIFICADOR
-    (10) valor -> . NUMERO
+    (15) asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .
 
-    IDENTIFICADOR   shift and go to state 31
-    NUMERO          shift and go to state 17
+    RESERVADO       reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
+    $end            reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
+    LLAVE_CERRADA   reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
+    COMA            reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
+    PUNTOCOMA       reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
+    PARENTESIS_CERRADO reduce using rule 15 (asignacion -> IDENTIFICADOR IGUAL operacion PUNTOCOMA .)
 
-    valor                          shift and go to state 48
 
 state 43
 
-    (15) funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .
+    (8) funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque .
 
-    RESERVADO       reduce using rule 15 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
-    IDENTIFICADOR   reduce using rule 15 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
-    SIMBOLO_ESPECIAL reduce using rule 15 (funcion -> RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque .)
+    RESERVADO       reduce using rule 8 (funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque .)
+    IDENTIFICADOR   reduce using rule 8 (funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque .)
+    $end            reduce using rule 8 (funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque .)
+    LLAVE_CERRADA   reduce using rule 8 (funcion -> RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque .)
 
 
 state 44
 
-    (11) asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .
+    (11) bloque -> LLAVE_ABIERTA . declaraciones LLAVE_CERRADA
+    (1) declaraciones -> . declaracion declaraciones
+    (2) declaraciones -> . declaracion
+    (3) declaracion -> . asignacion
+    (4) declaracion -> . funcion
+    (5) declaracion -> . inclusion
+    (6) declaracion -> . retorno
+    (12) asignacion -> . RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (13) asignacion -> . IDENTIFICADOR IGUAL valor
+    (14) asignacion -> . IDENTIFICADOR MENOR_IGUAL valor
+    (15) asignacion -> . IDENTIFICADOR IGUAL operacion PUNTOCOMA
+    (8) funcion -> . RESERVADO RESERVADO PARENTESIS_ABIERTO PARENTESIS_CERRADO bloque
+    (9) funcion -> . RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA
+    (10) funcion -> . RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque
+    (7) inclusion -> . RESERVADO RESERVADO
+    (29) retorno -> . RESERVADO valor PUNTOCOMA
 
-    RESERVADO       reduce using rule 11 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .)
-    IDENTIFICADOR   reduce using rule 11 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .)
-    SIMBOLO_ESPECIAL reduce using rule 11 (asignacion -> RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL .)
+    RESERVADO       shift and go to state 7
+    IDENTIFICADOR   shift and go to state 8
 
+    declaraciones                  shift and go to state 51
+    declaracion                    shift and go to state 2
+    asignacion                     shift and go to state 3
+    funcion                        shift and go to state 4
+    inclusion                      shift and go to state 5
+    retorno                        shift and go to state 6
 
 state 45
 
-    (16) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .
-    (1) bloque -> SIMBOLO_ESPECIAL . declaraciones SIMBOLO_ESPECIAL
-    (2) declaraciones -> . declaracion declaraciones
-    (3) declaraciones -> . declaracion
-    (4) declaracion -> . asignacion
-    (5) declaracion -> . funcion
-    (6) declaracion -> . inclusion
-    (7) declaracion -> . retorno
-    (11) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL valor SIMBOLO_ESPECIAL
-    (12) asignacion -> . RESERVADO IDENTIFICADOR SIMBOLO_ESPECIAL
-    (13) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL operacion SIMBOLO_ESPECIAL
-    (14) asignacion -> . IDENTIFICADOR SIMBOLO_ESPECIAL valor
-    (15) funcion -> . RESERVADO RESERVADO SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL bloque
-    (16) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL
-    (17) funcion -> . RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque
-    (28) inclusion -> . RESERVADO RESERVADO
-    (27) retorno -> . RESERVADO valor SIMBOLO_ESPECIAL
+    (12) asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .
 
-  ! shift/reduce conflict for RESERVADO resolved as shift
-  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
-    SIMBOLO_ESPECIAL reduce using rule 16 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .)
-    RESERVADO       shift and go to state 9
-    IDENTIFICADOR   shift and go to state 10
+    RESERVADO       reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    $end            reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    LLAVE_CERRADA   reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    COMA            reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    PUNTOCOMA       reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    PARENTESIS_CERRADO reduce using rule 12 (asignacion -> RESERVADO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
 
-  ! RESERVADO       [ reduce using rule 16 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .) ]
-  ! IDENTIFICADOR   [ reduce using rule 16 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL SIMBOLO_ESPECIAL .) ]
-
-    declaraciones                  shift and go to state 3
-    declaracion                    shift and go to state 4
-    asignacion                     shift and go to state 5
-    funcion                        shift and go to state 6
-    inclusion                      shift and go to state 7
-    retorno                        shift and go to state 8
 
 state 46
 
-    (17) funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .
+    (9) funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA .
 
-    RESERVADO       reduce using rule 17 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .)
-    IDENTIFICADOR   reduce using rule 17 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .)
-    SIMBOLO_ESPECIAL reduce using rule 17 (funcion -> RESERVADO SIMBOLO_ESPECIAL argumentos SIMBOLO_ESPECIAL bloque .)
+    RESERVADO       reduce using rule 9 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 9 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA .)
+    $end            reduce using rule 9 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA .)
+    LLAVE_CERRADA   reduce using rule 9 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO PUNTOCOMA .)
 
 
 state 47
 
-    (18) argumentos -> argumento SIMBOLO_ESPECIAL argumentos .
+    (10) funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque .
 
-    SIMBOLO_ESPECIAL reduce using rule 18 (argumentos -> argumento SIMBOLO_ESPECIAL argumentos .)
+    RESERVADO       reduce using rule 10 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque .)
+    IDENTIFICADOR   reduce using rule 10 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque .)
+    $end            reduce using rule 10 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque .)
+    LLAVE_CERRADA   reduce using rule 10 (funcion -> RESERVADO PARENTESIS_ABIERTO argumentos PARENTESIS_CERRADO bloque .)
 
 
 state 48
 
-    (8) operacion -> valor SIMBOLO_ESPECIAL valor .
+    (19) argumentos -> argumento COMA argumentos .
 
-    SIMBOLO_ESPECIAL reduce using rule 8 (operacion -> valor SIMBOLO_ESPECIAL valor .)
+    PARENTESIS_CERRADO reduce using rule 19 (argumentos -> argumento COMA argumentos .)
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 13 resolved as shift
-WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 14 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFICADOR in state 20 resolved as shift
-WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 24 resolved as shift
-WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 29 resolved as shift
-WARNING: shift/reduce conflict for SIMBOLO_ESPECIAL in state 33 resolved as shift
-WARNING: shift/reduce conflict for RESERVADO in state 45 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFICADOR in state 45 resolved as shift
+
+state 49
+
+    (20) argumentos -> argumento PUNTOCOMA argumentos .
+
+    PARENTESIS_CERRADO reduce using rule 20 (argumentos -> argumento PUNTOCOMA argumentos .)
+
+
+state 50
+
+    (28) operacion -> valor MULT valor .
+
+    PUNTOCOMA       reduce using rule 28 (operacion -> valor MULT valor .)
+
+
+state 51
+
+    (11) bloque -> LLAVE_ABIERTA declaraciones . LLAVE_CERRADA
+
+    LLAVE_CERRADA   shift and go to state 52
+
+
+state 52
+
+    (11) bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA .
+
+    RESERVADO       reduce using rule 11 (bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA .)
+    IDENTIFICADOR   reduce using rule 11 (bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA .)
+    $end            reduce using rule 11 (bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA .)
+    LLAVE_CERRADA   reduce using rule 11 (bloque -> LLAVE_ABIERTA declaraciones LLAVE_CERRADA .)
+
