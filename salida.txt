@@ -1,0 +1,134 @@
+declaraciones
+    declaracion
+        inclusion
+            RESERVADO: #include
+            RESERVADO: <stdio.h>
+    declaraciones
+        declaracion
+            funcion
+                RESERVADO: int
+                RESERVADO: main
+                PARENTESIS_ABIERTO: (
+                PARENTESIS_CERRADO: )
+                bloque
+                    LLAVE_ABIERTA: {
+                    declaraciones
+                        declaracion
+                            asignacion
+                                RESERVADO: int
+                                IDENTIFICADOR: c
+                                IGUAL: =
+                                valor
+                                    NUMERO: 1
+                                PUNTOCOMA: ;
+                        declaraciones
+                            declaracion
+                                asignacion
+                                    RESERVADO: int
+                                    IDENTIFICADOR: n
+                                    IGUAL: =
+                                    valor
+                                        NUMERO: 1
+                                    PUNTOCOMA: ;
+                            declaraciones
+                                declaracion
+                                    asignacion
+                                        RESERVADO: int
+                                        IDENTIFICADOR: fact
+                                        IGUAL: =
+                                        valor
+                                            NUMERO: 1
+                                        PUNTOCOMA: ;
+                                declaraciones
+                                    declaracion
+                                        funcion
+                                            RESERVADO: printf
+                                            PARENTESIS_ABIERTO: (
+                                            argumentos
+                                                argumento
+                                                    IDENTIFICADOR: "Ingrese el numero a calcular el factorial: \n"
+                                            PARENTESIS_CERRADO: )
+                                            PUNTOCOMA: ;
+                                    declaraciones
+                                        declaracion
+                                            funcion
+                                                RESERVADO: scanf
+                                                PARENTESIS_ABIERTO: (
+                                                argumentos
+                                                    argumento
+                                                        IDENTIFICADOR: "%d"
+                                                    COMA: ,
+                                                    argumentos
+                                                        argumento
+                                                            referencia
+                                                                AMPERSON: &
+                                                                IDENTIFICADOR: n
+                                                PARENTESIS_CERRADO: )
+                                                PUNTOCOMA: ;
+                                        declaraciones
+                                            declaracion
+                                                funcion
+                                                    RESERVADO: for
+                                                    PARENTESIS_ABIERTO: (
+                                                    argumentos
+                                                        argumento
+                                                            asignacion
+                                                                IDENTIFICADOR: c
+                                                                IGUAL: =
+                                                                valor
+                                                                    NUMERO: 1
+                                                        PUNTOCOMA: ;
+                                                        argumentos
+                                                            argumento
+                                                                asignacion
+                                                                    IDENTIFICADOR: c
+                                                                    MENOR_IGUAL: <=
+                                                                    valor
+                                                                        IDENTIFICADOR: n
+                                                            PUNTOCOMA: ;
+                                                            argumentos
+                                                                argumento
+                                                                    incremento
+                                                                        IDENTIFICADOR: c
+                                                                        MASMAS: ++
+                                                    PARENTESIS_CERRADO: )
+                                                    bloque
+                                                        LLAVE_ABIERTA: {
+                                                        declaraciones
+                                                            declaracion
+                                                                asignacion
+                                                                    IDENTIFICADOR: fact
+                                                                    IGUAL: =
+                                                                    operacion
+                                                                        valor
+                                                                            IDENTIFICADOR: fact
+                                                                        MULT: *
+                                                                        valor
+                                                                            IDENTIFICADOR: c
+                                                        LLAVE_CERRADA: }
+                                            declaraciones
+                                                declaracion
+                                                    funcion
+                                                        RESERVADO: printf
+                                                        PARENTESIS_ABIERTO: (
+                                                        argumentos
+                                                            argumento
+                                                                IDENTIFICADOR: "El factorial de %d es: %d\n"
+                                                            COMA: ,
+                                                            argumentos
+                                                                argumento
+                                                                    IDENTIFICADOR: n
+                                                                COMA: ,
+                                                                argumentos
+                                                                    argumento
+                                                                        IDENTIFICADOR: fact
+                                                        PARENTESIS_CERRADO: )
+                                                        PUNTOCOMA: ;
+                                                declaraciones
+                                                    declaracion
+                                                        retorno
+                                                            RESERVADO: return
+                                                            valor
+                                                                NUMERO: 0
+                                                            PUNTOCOMA: ;
+                    LLAVE_CERRADA: }
