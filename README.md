@@ -5,7 +5,7 @@
 
 ### Integrantes:
 - Anton Belen (belenantonok@gamil.com)
-- Berent Natali (nataberent@gmail.com)
+- Berent Natalí (nataberent@gmail.com)
 - Blazco Emiliano(emilianoblazco@gmail.com)
 - Cristaldo Ariel (cristaldoyonathanariel@gmail.com)
 - Fernandez Matias(matias.fernandez099@gmail.com)
