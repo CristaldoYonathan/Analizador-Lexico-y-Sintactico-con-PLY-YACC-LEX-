@@ -170,10 +170,11 @@ def p_argumento(p):
     '''
     if str(p[1]).startswith('"'):
         p[0] = Node('argumento', children=[Node('STRING', value=p[1])])
-    if str(p[1]).__contains__('referencia') or str(p[1]).__contains__('asignacion') or str(p[1]).__contains__('incremento'):
-        p[0] = Node('argumento', children=[p[1]])
     else:
-        p[0] = Node('argumento', children=[Node('IDENTIFICADOR', value=p[1])])
+        if str(p[1]).__contains__('referencia') or str(p[1]).__contains__('asignacion') or str(p[1]).__contains__('incremento'):
+            p[0] = Node('argumento', children=[p[1]])
+        else:
+            p[0] = Node('argumento', children=[Node('IDENTIFICADOR', value=p[1])])
 
 def p_referencia(p):
     '''
