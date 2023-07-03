@@ -188,7 +188,7 @@ int main() {
 # Darle la cadena de entrada al lexer
 lexer.input(input_string)
 
-# Iterar sobre los tokens encontrados
+# Iterar sobre los tokens encontrados para imprimir el analisis lexico
 for token in lexer:
     print(f'Token: {token.type}, Valor: {token.value}, Línea: {token.lineno}')
 
@@ -198,7 +198,7 @@ parser = yacc.yacc(debug=True)
 # Analizar la cadena de entrada
 result = parser.parse(input_string)
 
-# Imprimir el resultado del análisis
+# Imprimir el resultado del análisis sintactico
 if result:
     print("\n\n") 
     print("El resultado del análisis es: \n\n" + result)
